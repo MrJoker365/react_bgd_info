@@ -1,0 +1,54 @@
+.Frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /*width: 90%;*/
+    width: fit-content;
+
+    /*min-width: fit-content;*/
+
+    margin: 50px 50px;
+
+    overflow: auto;
+    height: 600px;
+
+    /*border: 1px solid red ;*/
+}
+
+.Row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    background: #464646;
+
+    font-family: Inter, "sans-serif";
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFFFFF;
+
+
+    /*height: 40px;*/
+    height: max-content;
+    width: 100%;
+    padding: 10px 10px;
+}
+
+/*.Row > div {*/
+/*    width: 100%;*/
+/*}*/
+
+.Frame > div:nth-child(even){
+    background: none;
+}
+
+/*.Row div:first-child {*/
+/*    width: 150px;*/
+/*}*/
+
+/*.Row div:nth-child(2) {*/
+/*    width: 150px;*/
+/*}*/
+

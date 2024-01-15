@@ -1,0 +1,27 @@
+.Frame {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+    /*background: #464646;*/
+
+    font-family: Inter, "sans-serif";
+    font-size: 16px;
+    font-weight: 600;
+    color: #FFFFFF;
+
+}
+
+
+.Row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.Row div:first-child {
+    color: purple;
+}

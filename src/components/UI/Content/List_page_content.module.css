@@ -1,0 +1,56 @@
+.Rectangle{
+    width: 100%;
+    background: rgba(31, 31, 31, 0.97);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /*justify-content: center;*/
+
+    position: relative;
+
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.Alert{
+    align-self: center;
+    /*position: sticky;*/
+
+    display: flex;
+
+    width: auto;
+    height: fit-content;
+    /*height: 50px;*/
+    padding: 10px 40px 0px 40px;
+
+
+    /*border: 3px solid #6fae02;*/
+    border: 2px solid;
+    /*border-image-source:linear-gradient(#1d2019, #6fae02);*/
+    border-image-source:radial-gradient(circle, #6fae02, #1d2019);
+    border-image-slice: 1;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    /*background-color: #b1ff4b4f;*/
+    /*border-radius: 10px 20px 30px 40px / 5px 15px 25px 35px;*/
+
+
+
+
+
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);*/
+
+    font-size: 18px;
+    font-weight: 600;
+    color: #5b5b5b;
+
+
+
+    /*border-top: 2px solid #333; !* Верхня рамка *!*/
+    /*border-right: 1px dotted #555; !* Права рамка *!*/
+    /*border-bottom: 4px double #777; !* Нижня рамка *!*/
+    /*border-left: 3px dashed #999; !* Ліва рамка *!*/
+
+
+}
+
