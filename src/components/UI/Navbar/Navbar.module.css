@@ -8,8 +8,10 @@ ul, ol {
 }
 
 .Rectangle{
-    width: 322px;
+    width: 260px;
     height: 100vh;
+    min-height: max-content;
+    min-width: fit-content;
     left: 0;
     top: 0;
     /*position: fixed;*/
@@ -21,7 +23,12 @@ ul, ol {
     font-weight: 600;
 
     position: sticky; /*злашає блок в поточному положені*/
+    overflow: scroll;
 
+}
+
+.Rectangle__fix{
+    /*position: sticky;*/
 }
 
 .Frame1 {
@@ -47,6 +54,8 @@ ul, ol {
 
 .Frame2{
     margin: 20px 20px 30px 20px;
+
+    /*overflow: scroll;*/
 }
 
 .Frame2_block {

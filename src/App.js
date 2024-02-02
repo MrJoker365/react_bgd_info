@@ -6,8 +6,8 @@ function App() {
 
       <Routes>
               <Route path="/" element={<Navbar/>}>
-                  <Route path="main" element={<Main_page/>}/>
-                  <Route path="main/:mode/:id" element={<Main_page/>}/>
+                  {/*<Route path="main/buildinfo" element={<Main_page/>}/>*/}
+                  <Route path="main/buildinfo/:id" element={<Main_page/>}/>
               </Route>
 
       </Routes>

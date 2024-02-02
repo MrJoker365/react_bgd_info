@@ -7,7 +7,7 @@ const MyInput = () => {
         <div className={st.Frame}>
             <form className={st.FormSearch}>
                 <input type="text" className={st.Search} name="userInput" placeholder="Ключове слово"/>
-                <MyButton/>
+                {/*<MyButton/>*/}
             </form>
         </div>
     );

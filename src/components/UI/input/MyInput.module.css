@@ -1,7 +1,7 @@
 .Frame {
-    align-self: flex-start;  /*Перекриває стиль батьківського блоку align-items: center;*/
+    align-self: center;  /*Перекриває стиль батьківського блоку align-items: center;*/
 
-    margin: 40px 10px 40px 10%;
+    margin: 40px auto 40px auto;
 
 
     width: 60%;

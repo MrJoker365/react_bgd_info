@@ -15,4 +15,11 @@ export default class InfoBuildService {
         return response;
     }
 
+    static async getById(id) {
+
+
+        const response = await axios.get("http://localhost:8081/api/getById/" + id)
+        return response;
+    }
+
 }

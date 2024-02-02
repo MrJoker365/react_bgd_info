@@ -4,7 +4,7 @@ import Navbar from "../components/UI/Navbar/Navbar";
 import List_page_content from "../components/UI/Content/List_page_content";
 import {useFetchingHook} from "../hooks/useFetchingHook";
 import InfoBuildService from "../API/InfoBuildService";
-import {Outlet, Route, Routes} from "react-router-dom";
+import {Outlet, Route, Routes, useLocation, useParams} from "react-router-dom";
 
 
 const MainPage = () => {
@@ -13,7 +13,7 @@ const MainPage = () => {
 
         let info = [];
 
-        for (let i = 0; i < 20; i++) {
+        for (let i = 1; i < 20; i++) {
 
 
             const some = {
@@ -31,24 +31,59 @@ const MainPage = () => {
         return info;
     }
 
-    const [infoBuild, setInfoBuild] = useState(getInfos());
+    const [infoBuilds, setInfoBuilds] = useState(getInfos());
 
 
 
-
-
-
-    const [fetchInfoBuild, isLoading, error] = useFetchingHook(async (limit, page) => {
+    const [fetching_AllInfoBuilds, isLoading, error] = useFetchingHook(async (limit, page) => {
         const respons = await InfoBuildService.getAll()
-        setInfoBuild(respons.data)
+        setInfoBuilds(respons.data)
     })
 
+
     useEffect(() => {
-        fetchInfoBuild();
+        fetching_AllInfoBuilds();
     }, []);
 
 
 
+
+
+    console.log("Main_page.jsx") // тимчасово
+
+    // const [infoBuild, setInfoBuild] = useState(getInfos()[5]);
+    const [infoBuild, setInfoBuild] = useState({});
+
+
+    const {id} = useParams();
+    const location = useLocation();
+
+
+    const [fetching_InfoBuild, isLoading_InfoBuild, error_InfoBuild] = useFetchingHook(async (id) => {
+        const respons = await InfoBuildService.getById(id)
+        setInfoBuild(respons.data)
+    })
+
+
+    useEffect(() => {
+
+        if (location.pathname.includes('/main/buildInfo') && id !== "0") {
+            fetching_InfoBuild(id);
+            setInfoBuild(getInfos()[id - 1]) /*ТИМЧАСОВО*/
+        }
+
+    }, [id, location.pathname]); /*ТЕЖ ТИМЧАСОВО*/
+
+
+
+    const form_FieldName = {
+        id: "№",
+        address: "Адреса",
+        electric_box: "Електричний щиток",
+        place_of_overlap: "Місце перекриття",
+        persons_with_disabilities: "Кількість людей з обмеженою рухливістю",
+        number_of_people: "Приблизна кількість людей"
+    }
 
 
 
@@ -57,7 +92,8 @@ const MainPage = () => {
 
     return (
 
-        <List_page_content informations={infoBuild}/>
+        <List_page_content informations={infoBuilds} some_URL="buildInfo" form={{form_FieldName, infoBuild}}/>
+
 
 
     );
