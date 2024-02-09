@@ -1,0 +1,13 @@
+.Frame {
+    /*align-self: flex-start;*/
+
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    /*row-gap: 20px;*/
+
+    width: 100%;
+
+    /*margin: 40px auto 40px auto;*/
+    margin: 10px auto;
+}

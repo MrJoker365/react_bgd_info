@@ -1,11 +1,12 @@
 import React from 'react';
 import st from "./MyButton.module.css"
 
-const MyButton = () => {
+const MyButton = ({children, ...props}) => {
     return (
-        <div>
-            <button type="submit" onClick={ (e) => e.preventDefault()}>SEARCH</button>
-        </div>
+            <button type="submit" {...props}>
+                {children}
+            </button>
+
     );
 };
 

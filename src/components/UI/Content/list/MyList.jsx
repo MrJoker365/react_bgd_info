@@ -1,22 +1,26 @@
 import React from 'react';
 import st from "./MyList.module.css"
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
 const MyList = ({informations, some_URL, setVisible}) => {
 
     const navigate = useNavigate();
+    const {id} = useParams();
+    const location = useLocation().pathname;
 
     return (
         <div className={st.Frame}>
             {informations.map((info) =>
 
                 <div className={st.Row} onClick={() => {
-                    navigate(`/main/${some_URL}/${info.id}`); // передача динамічної URL
+                    // navigate(`/main/${some_URL}/${info.id}`); // передача динамічної URL
+                    navigate(location.replace(`/${id}`, `/${info.id}`)); // передача динамічної URL
+
                     setVisible(true); // При клікані робить форму видимою
                 } }
                      key={info.id}
                 >
-                    <div>{info.address}</div>
+                    <div>{info.address}</div> {/*TODO замінити на динамічну*/}
                     <div>01/2023</div>
                 </div>
 

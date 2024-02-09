@@ -1,0 +1,65 @@
+.Rectangle {
+    display: flex;
+    background: rgba(31, 31, 31, 0.97);
+    flex-direction: column;
+    /*justify-content: space-between;*/
+
+    /*width: 69vw;*/
+
+    width: 100%;
+    /*max-width: 100%;*/
+    /*visibility: hidden;*/
+}
+
+.Row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+
+    color: #FFFFFF;
+    font-family: Inter, sans-serif;
+    /*max-width: max-content;*/
+
+}
+
+
+.Alert{
+    align-self: center;
+    /*position: sticky;*/
+
+    display: flex;
+
+    width: auto;
+    height: fit-content;
+    /*height: 50px;*/
+    padding: 10px 40px 0px 40px;
+
+
+    border: 2px solid;
+
+    border-image-source:radial-gradient(circle, #6fae02, #1d2019);
+    border-image-slice: 1;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+
+
+    font-size: 18px;
+    font-weight: 600;
+    color: #5b5b5b;
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+
+    margin: 10px 40px;
+
+    max-width: max-content;
+
+}

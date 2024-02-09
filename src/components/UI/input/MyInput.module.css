@@ -1,32 +1,34 @@
-.Frame {
-    align-self: center;  /*Перекриває стиль батьківського блоку align-items: center;*/
+/*.Frame {*/
+/*    align-self: center;  !*Перекриває стиль батьківського блоку align-items: center;*!*/
 
-    margin: 40px auto 40px auto;
+/*    margin: 40px auto 40px auto;*/
 
 
-    width: 60%;
+/*    width: 60%;*/
 
-}
+/*}*/
 
-.FormSearch{
-    display: flex;
-    flex-direction: row;
-    justify-content: left;
-    /*row-gap: 20px;*/
+/*.FormSearch{*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: left;*/
+/*    !*row-gap: 20px;*!*/
 
-    width: 100%;
+/*    width: 100%;*/
 
-}
+/*}*/
 
 .Search {
     border: 1px solid #858585;
     background: rgba(173, 173, 173, 0.00);
 
     /*width: 735px;*/
-    width: 100%;
-    min-width: 200px;
-    height: 37px;
-    margin-right: 20px;
+    width: 90%;
+    padding: 5px 15px;
+    margin: 1px 5px;
+    /*min-width: 200px;*/
+    /*height: 37px;*/
+    /*margin-right: 20px;*/
     /*flex-shrink: 0;*/
 
     color: #FFF;
@@ -34,3 +36,34 @@
     font-weight: 600;
 
 }
+
+
+.Search_2 {
+    border: 4px solid #FFFFFF;
+    background: #ADADAD;
+
+    /*width: 735px;*/
+    /*width: 90%;*/
+    width: 300px;
+    padding: 5px 15px;
+    margin: 1px 5px;
+    /*min-width: 200px;*/
+    /*height: 37px;*/
+    /*margin-right: 20px;*/
+    /*flex-shrink: 0;*/
+
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+
+}
+
+/*.Search{*/
+/*    width: 90%;*/
+/*    padding: 5px 15px;*/
+
+/*    margin: 1px 0;*/
+/*    border: 1px solid teal;*/
+
+/*    !*max-width: max-content;*!*/
+/*}*/

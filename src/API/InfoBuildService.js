@@ -16,10 +16,12 @@ export default class InfoBuildService {
     }
 
     static async getById(id) {
-
-
-        const response = await axios.get("http://localhost:8081/api/getById/" + id)
-        return response;
+        return await axios.get("http://localhost:8081/api/getById/" + id);
     }
+
+    static async add (data){
+        return await axios.post("http://localhost:8081/api/add", data)
+    }
+
 
 }
