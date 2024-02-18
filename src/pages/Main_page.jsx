@@ -6,7 +6,9 @@ import {useFetchingHook} from "../hooks/useFetchingHook";
 import InfoBuildService from "../API/InfoBuildService";
 import {Outlet, Route, Routes, useLocation, useParams} from "react-router-dom";
 import MyCreateForm from "../components/UI/Content/forms/MyCreateForm";
-import Frame_Mode from "../constant/Const";
+// import Frame_Mode from "../constant/Const";
+
+import {Frame_Mode, InputStyleConst} from "../constant/Const";
 
 
 const MainPage = () => {
@@ -60,7 +62,7 @@ const MainPage = () => {
     console.log("Main_page.jsx") // тимчасово
 
     // const [infoBuild, setInfoBuild] = useState(getInfos()[5]);
-    const [infoBuild, setInfoBuild] = useState({});
+    const [infoBuild, setInfoBuild] = useState(null);
 
 
     const {id} = useParams();
@@ -72,17 +74,33 @@ const MainPage = () => {
         setInfoBuild(respons.data)
     })
 
+    const [visible, setVisible] = useState(false)
+    let vs = false
+    if(id) vs = true
+
 
     useEffect(() => {
 
         if (location.pathname.includes('/main/buildInfo') && id !== "0") {
             fetching_InfoBuild(id);
             setInfoBuild(getInfos()[id - 1]) /*ТИМЧАСОВО*/
+        }else {
+            setInfoBuild(null) /*ТИМЧАСОВО*/
         }
 
-    }, [id, location.pathname]); /*ТЕЖ ТИМЧАСОВО*/
+    }, [id, location.pathname, vs]); /*ТЕЖ ТИМЧАСОВО*/
 
+    useEffect(() => {
+        if(infoBuild) {
+            setVisible(true)
+            console.log(infoBuild)
 
+        }
+        else {
+            setVisible(false)
+            console.log(infoBuild)
+        }
+    }, [infoBuild]);
 
     const form_FieldName = {
         id: "№",
@@ -97,35 +115,41 @@ const MainPage = () => {
         id: {
             name: "№",
             inputType: "number",
-            data: infoBuilds.id
+            data: infoBuild?.id,
         },
         address: {
             name: "Адреса",
             inputType: "text",
-            data: infoBuilds.address
+            data: infoBuild?.address
         },
         electric_box:  {
             name: "Електричний щиток",
             inputType: "text",
-            data: infoBuilds.electric_box
+            data: infoBuild?.electric_box
         },
         place_of_overlap:  {
             name: "Місце перекриття",
             inputType: "text",
-            data: infoBuilds.place_of_overlap
+            data: infoBuild?.place_of_overlap
         },
         persons_with_disabilities:  {
             name: "Кількість людей з обмеженою рухливістю",
             inputType: "number",
-            data: infoBuilds.persons_with_disabilities
+            data: infoBuild?.persons_with_disabilities
         },
         number_of_people:  {
             name: "Приблизна кількість людей",
             inputType: "number",
-            data: infoBuilds.number_of_people
+            data: infoBuild?.number_of_people
         }
     }
 
+
+
+    // const newData = {
+    //     id: 1,
+    //     address: "Київ"
+    // }
 
 
 
@@ -141,20 +165,34 @@ const MainPage = () => {
         addInfo(newData)
     }
 
+    const changeInfo = (newData) => {
+        //TODO функціонал для редагування / видалення інфи
+    }
 
     let page = Frame_Mode.READ
 
     const renderContent = () => {
         switch (page) {
             case Frame_Mode.READ:
-                // return <List_page_content informations={infoBuilds} some_URL="buildInfo" form={{form_FieldName, infoBuild}}/>;
-                return <List_page_content informations={infoBuilds} some_URL="buildInfo" form={form_FieldName_2} data={infoBuild}/>;
-            case Frame_Mode.CREATE:
-                return <MyCreateForm mode={Frame_Mode.CREATE} callback={createInfo} form={form_FieldName_2} data={infoBuild}/>; // data для прикладу
             case Frame_Mode.CHANGE:
-                return <List_page_content informations={infoBuilds} some_URL="buildInfo" form={form_FieldName_2} data={infoBuild}/>;
-            default:
-                return <List_page_content informations={infoBuilds} some_URL="buildInfo" form={{form_FieldName, infoBuild}}/>;
+                // return <List_page_content informations={infoBuilds} some_URL="buildInfo" form={{form_FieldName, infoBuild}}/>;
+                return (
+                    <List_page_content informations={infoBuilds}>
+
+                        {page === Frame_Mode.READ &&
+                            <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_2} visible={visible}/>
+                        }
+                        {page === Frame_Mode.CHANGE &&
+                            <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={changeInfo} form={form_FieldName_2} visible={visible} />
+                        }
+
+                    </List_page_content>
+                )
+            case Frame_Mode.CREATE:
+                return <MyCreateForm frame_mode={Frame_Mode.CREATE} callback={createInfo} form={form_FieldName_2}/>;
+
+            // default:
+            //     return <List_page_content informations={infoBuilds}/>;
         }
     }
 

@@ -1,9 +1,32 @@
 
-const Frame_Mode = {
+export const Frame_Mode = {
     READ: "Read",
     CHANGE: "Change",
     CREATE: "Create"
 }
 
-export default Frame_Mode;
+export const InputStyleConst = {
+    SEARCH: "Search",
+    INPUT: "Input",
+}
+
+
+// const Constant = {
+//     Frame_Mode: {
+//         READ: "Read",
+//         CHANGE: "Change",
+//         CREATE: "Create"
+//     },
+//     InputStyleConst: {
+//         SEARCH: "Search",
+//         INPUT: "Input",
+//     }
+// }
+
+
+// export default Frame_Mode;
+// export default Constant;
+// export default [Constant.InputStyleConst, Constant.Frame_Mode];
+export default [InputStyleConst, Frame_Mode];
+
 

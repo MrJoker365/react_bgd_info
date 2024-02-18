@@ -6,8 +6,9 @@ function App() {
 
       <Routes>
               <Route path="/" element={<Navbar/>}>
-                  {/*<Route path="main/buildinfo" element={<Main_page/>}/>*/}
+                  <Route path="main/buildinfo" element={<Main_page/>}/>
                   <Route path="main/buildinfo/:id" element={<Main_page/>}/>
+                  {/*<Route path={["main/buildinfo/:id", "main/buildinfo" ]} element={<Main_page/>}/>*/}
               </Route>
 
       </Routes>

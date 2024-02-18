@@ -1,14 +1,27 @@
 import React from 'react';
 import st from "./MyInput.module.css"
 import MyButton from "../button/MyButton";
+import {InputStyleConst} from "../../../constant/Const";
 
 const MyInput = (props) => { // {inputStyle}
 
     const { inputStyle, ...restProps } = props;
 
-    const rootClass = [st.Search_2];
+    const rootClass = []; // Класи зі стилями поля вводу
+    // const rootClass = [st.Search_2];
+    // if (inputStyle === "search") rootClass.splice(0,1, st.Search)
 
-    if (inputStyle === "search") rootClass.splice(0,1, st.Search)
+    switch (inputStyle) {
+        case InputStyleConst.INPUT:
+            rootClass.push(st.Search_2);
+            break;
+        case InputStyleConst.SEARCH:
+            rootClass.push(st.Search);
+            break;
+        default:
+            rootClass.push(st.Search_2);
+            break;
+    }
 
     return (
         // <div className={st.Frame}>
@@ -18,7 +31,7 @@ const MyInput = (props) => { // {inputStyle}
         //     </form>
         // </div>
 
-        <input className={rootClass.join(" ")} { ...restProps } />
+        <input className={rootClass.join(" ")} { ...restProps }/>
     );
 };
 

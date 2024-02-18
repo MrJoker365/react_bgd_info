@@ -2,7 +2,7 @@ import React from 'react';
 import st from "./MyList.module.css"
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 
-const MyList = ({informations, some_URL, setVisible}) => {
+const MyList = ({informations, setVisible}) => {
 
     const navigate = useNavigate();
     const {id} = useParams();
@@ -14,6 +14,7 @@ const MyList = ({informations, some_URL, setVisible}) => {
 
                 <div className={st.Row} onClick={() => {
                     // navigate(`/main/${some_URL}/${info.id}`); // передача динамічної URL
+                    {if (!id) console.log("id відсутнє")}
                     navigate(location.replace(`/${id}`, `/${info.id}`)); // передача динамічної URL
 
                     setVisible(true); // При клікані робить форму видимою

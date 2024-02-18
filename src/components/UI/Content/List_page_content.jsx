@@ -9,7 +9,7 @@ import ListFilter from "../Filter/ListFilter";
 import {useFilterHook} from "../../../hooks/useFilterHook";
 import MyCreateForm from "./forms/MyCreateForm";
 
-const List_page_content = ({informations,some_URL ,form, data}) => {
+const List_page_content = ({children, informations}) => {
 
 
     const [visible, setVisible] = useState(false); // тимчасово true
@@ -20,22 +20,14 @@ const List_page_content = ({informations,some_URL ,form, data}) => {
 
     const sortedAndSearchedList = useFilterHook(informations, "address", filter.sort, filter.query) // власний hook  (usePostsHook.js)
 
-    // const {id} = useParams();
-    //
-    //
-    // if (id === form.infoBuild.id+"") {
-    //     setVisible(true);
-    // }
 
-    useEffect(() => {
-        if (form.infoBuild?.id){
-            setVisible(true)
-        }
-    }, [form]);
 
-    // if (form.infoBuild?.id){
-    //     setVisible(true)
-    // }
+    // useEffect(() => {
+    //     if (form.infoBuild?.id){
+    //         setVisible(true)
+    //     }
+    // }, [form]);
+
 
     return (
 
@@ -54,7 +46,7 @@ const List_page_content = ({informations,some_URL ,form, data}) => {
                 />
 
                 {/*<MyList informations={informations} some_URL={some_URL} setVisible={setVisible}/>*/}
-                <MyList informations={sortedAndSearchedList} some_URL={some_URL} setVisible={setVisible}/>  {/*покищо працює, потім вдосконалю...*/}
+                <MyList informations={sortedAndSearchedList}setVisible={setVisible}/>  {/*покищо працює, потім вдосконалю...*/}
 
                 {/*<div style={{display: "flex"}}>*/}
                 {/*    /!*<MyList informations={informations}/>*!/*/}
@@ -64,7 +56,9 @@ const List_page_content = ({informations,some_URL ,form, data}) => {
 
             {/*<MyListForm visible={visible} form={form}/>*/}
 
-            <MyCreateForm form={form} data={data}/>
+            {/*<MyCreateForm form={form} data={data}/>*/}
+
+            {children}
 
 
         </div>
