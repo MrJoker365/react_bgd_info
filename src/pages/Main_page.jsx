@@ -4,7 +4,7 @@ import Navbar from "../components/UI/Navbar/Navbar";
 import List_page_content from "../components/UI/Content/List_page_content";
 import {useFetchingHook} from "../hooks/useFetchingHook";
 import InfoBuildService from "../API/InfoBuildService";
-import {Outlet, Route, Routes, useLocation, useParams} from "react-router-dom";
+import {Outlet, Route, Routes, useLocation, useParams, useSearchParams} from "react-router-dom";
 import MyCreateForm from "../components/UI/Content/forms/MyCreateForm";
 // import Frame_Mode from "../constant/Const";
 
@@ -65,8 +65,15 @@ const MainPage = () => {
     const [infoBuild, setInfoBuild] = useState(null);
 
 
-    const {id} = useParams();
+    // const {id} = useParams();
+    // console.log(id)
     const location = useLocation();
+
+    // const searchParam = new URLSearchParams(location.search);
+    const[searchParam, setSearchParam] = useSearchParams();
+    const pageQuery = searchParam.get("pg") || null;
+    const idQuery = parseInt(searchParam.get("id"), 10) || null;
+
 
 
     const [fetching_InfoBuild, isLoading_InfoBuild, error_InfoBuild] = useFetchingHook(async (id) => {
@@ -76,19 +83,22 @@ const MainPage = () => {
 
     const [visible, setVisible] = useState(false)
     let vs = false
-    if(id) vs = true
+    // if(id) vs = true
+    if(idQuery) vs = true
 
 
     useEffect(() => {
 
-        if (location.pathname.includes('/main/buildInfo') && id !== "0") {
-            fetching_InfoBuild(id);
-            setInfoBuild(getInfos()[id - 1]) /*ТИМЧАСОВО*/
+        // if (location.pathname.includes('/main/buildInfo') && id !== "0") {
+        if (idQuery) {
+            fetching_InfoBuild(idQuery);
+            setInfoBuild(getInfos()[idQuery - 1]) /*ТИМЧАСОВО*/
         }else {
             setInfoBuild(null) /*ТИМЧАСОВО*/
         }
 
-    }, [id, location.pathname, vs]); /*ТЕЖ ТИМЧАСОВО*/
+    // }, [id, location.pathname, vs]); /*ТЕЖ ТИМЧАСОВО*/
+    }, [idQuery, location.pathname, vs]); /*ТЕЖ ТИМЧАСОВО*/
 
     useEffect(() => {
         if(infoBuild) {
@@ -98,7 +108,7 @@ const MainPage = () => {
         }
         else {
             setVisible(false)
-            console.log(infoBuild)
+            console.log("Такої інфи не існує")
         }
     }, [infoBuild]);
 
@@ -152,7 +162,7 @@ const MainPage = () => {
     // }
 
 
-
+    console.log("hello _ 165")
 
     // Добавлення інформації
 
@@ -169,41 +179,47 @@ const MainPage = () => {
         //TODO функціонал для редагування / видалення інфи
     }
 
-    let page = Frame_Mode.READ
 
-    const renderContent = () => {
-        switch (page) {
-            case Frame_Mode.READ:
-            case Frame_Mode.CHANGE:
-                // return <List_page_content informations={infoBuilds} some_URL="buildInfo" form={{form_FieldName, infoBuild}}/>;
-                return (
-                    <List_page_content informations={infoBuilds}>
-
-                        {page === Frame_Mode.READ &&
-                            <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_2} visible={visible}/>
-                        }
-                        {page === Frame_Mode.CHANGE &&
-                            <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={changeInfo} form={form_FieldName_2} visible={visible} />
-                        }
-
-                    </List_page_content>
-                )
-            case Frame_Mode.CREATE:
-                return <MyCreateForm frame_mode={Frame_Mode.CREATE} callback={createInfo} form={form_FieldName_2}/>;
-
-            // default:
-            //     return <List_page_content informations={infoBuilds}/>;
-        }
-    }
+    // let page = Frame_Mode.READ
+    //
+    // const renderContent = () => {
+    //     switch (page) {
+    //         case Frame_Mode.READ:
+    //         case Frame_Mode.CHANGE:
+    //             // return <List_page_content informations={infoBuilds} some_URL="buildInfo" form={{form_FieldName, infoBuild}}/>;
+    //             return (
+    //                 <List_page_content informations={infoBuilds} setSearchParam={setSearchParam}>
+    //
+    //                     {page === Frame_Mode.READ &&
+    //                         <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_2} visible={visible}/>
+    //                     }
+    //                     {page === Frame_Mode.CHANGE &&
+    //                         <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={changeInfo} form={form_FieldName_2} visible={visible} />
+    //                     }
+    //
+    //                 </List_page_content>
+    //             )
+    //         case Frame_Mode.CREATE:
+    //             return <MyCreateForm frame_mode={Frame_Mode.CREATE} callback={createInfo} form={form_FieldName_2}/>;
+    //
+    //         // default:
+    //         //     return <List_page_content informations={infoBuilds}/>;
+    //     }
+    // }
 
 
 
     return (
-        // <List_page_content informations={infoBuilds} some_URL="buildInfo" form={{form_FieldName, infoBuild}}/>
 
-         // <MyCreateForm/>
+        // renderContent()
 
-        renderContent()
+        <Routes>
+            <Route element={<List_page_content informations={infoBuilds} setSearchParam={setSearchParam}/>}>
+                <Route path="read" element={ <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_2} visible={visible}/>}/>
+                <Route path="change" element={ <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={changeInfo} form={form_FieldName_2} visible={visible} />}/>
+            </Route>
+            <Route path="create" element={<MyCreateForm frame_mode={Frame_Mode.CREATE} callback={createInfo} form={form_FieldName_2}/>}/>
+        </Routes>
     );
 };
 

@@ -8,6 +8,7 @@ export const Frame_Mode = {
 export const InputStyleConst = {
     SEARCH: "Search",
     INPUT: "Input",
+    FIELD_NAME: "Field_name"
 }
 
 

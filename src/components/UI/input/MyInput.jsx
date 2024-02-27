@@ -18,6 +18,9 @@ const MyInput = (props) => { // {inputStyle}
         case InputStyleConst.SEARCH:
             rootClass.push(st.Search);
             break;
+        case InputStyleConst.FIELD_NAME:
+            rootClass.push(st.Search_3);
+            break;
         default:
             rootClass.push(st.Search_2);
             break;

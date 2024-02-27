@@ -20,13 +20,15 @@ const Navbar = () => {
                         <div className={st.Frame2_block}>
                             <div className={st.Icon}/>
                             <div className={st.Frame2_list}>
-                                <Link to="/main/buildInfo/0" className={st.Link}>Список будинків</Link>
+                                {/*<Link to="/main/buildInfo/0" className={st.Link}>Список будинків</Link>*/}
+                                <Link to="/list/read" className={st.Link}>Список будинків</Link>
                                 <nav>
                                     <ul>
-                                        <li>Read only</li>
-                                        <li>Create new</li>
-                                        <li>Change/Update</li>
-                                        <li>Delete</li>
+                                        <li><Link to="/list/read" className={st.Link}>Read only</Link></li>
+                                        <li><Link to="/list/create" className={st.Link}>Create new</Link></li>
+                                        <li><Link to="/list/change" className={st.Link}>Change/Delete</Link></li>
+
+                                        {/*<li>Delete</li>*/}
                                     </ul>
                                 </nav>
                             </div>

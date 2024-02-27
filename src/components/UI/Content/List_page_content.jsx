@@ -4,12 +4,12 @@ import MyInput from "../input/MyInput";
 import MySelect from "../select/MySelect";
 import MyList from "./list/MyList";
 import MyListForm from "./forms/MyListForm";
-import {useParams} from "react-router-dom";
+import {Outlet, useParams} from "react-router-dom";
 import ListFilter from "../Filter/ListFilter";
 import {useFilterHook} from "../../../hooks/useFilterHook";
 import MyCreateForm from "./forms/MyCreateForm";
 
-const List_page_content = ({children, informations}) => {
+const List_page_content = ({children, informations, setSearchParam}) => {
 
 
     const [visible, setVisible] = useState(false); // тимчасово true
@@ -35,30 +35,22 @@ const List_page_content = ({children, informations}) => {
         <div className={st.Rectangle}>
 
             <div className={st.Frame1}>
-                {/*<div className={st.Alert}>read only</div>*/}
 
-                {/*<MyInput/>*/}
-                {/*<MySelect/>*/}
 
                 <ListFilter
                     filter={filter}
                     setFilter={setFilter}
                 />
 
-                {/*<MyList informations={informations} some_URL={some_URL} setVisible={setVisible}/>*/}
-                <MyList informations={sortedAndSearchedList}setVisible={setVisible}/>  {/*покищо працює, потім вдосконалю...*/}
+                <MyList informations={sortedAndSearchedList} setVisible={setVisible} setSearchParam={setSearchParam}/>  {/*покищо працює, потім вдосконалю...*/}
 
-                {/*<div style={{display: "flex"}}>*/}
-                {/*    /!*<MyList informations={informations}/>*!/*/}
-                {/*    /!*<MyListForm/>*!/  /!*ДОБАВИТИ ПОТІМ*!/*/}
-                {/*</div>*/}
+
             </div>
 
-            {/*<MyListForm visible={visible} form={form}/>*/}
-
-            {/*<MyCreateForm form={form} data={data}/>*/}
 
             {children}
+
+            <Outlet/>  {/*або children, або Outlet*/}
 
 
         </div>
