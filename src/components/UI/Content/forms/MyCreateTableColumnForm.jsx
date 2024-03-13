@@ -7,22 +7,50 @@ import {Frame_Mode, InputStyleConst} from "../../../../constant/Const";
 import MyButton from "../../button/MyButton";
 
 
+class Template {
+    constructor(fieldName = "", inputType = "", accessRights = "") {
+        this.fieldName = fieldName;
+        this.inputType = inputType;
+        this.accessRights = accessRights;
+    }
+}
+
+
+
 const MyCreateTableColumnForm = () => {
 
-    const columnTemplate = {
-        fieldName: "",
-        inputType: "",
-        accessRights: ""
-    }
+    const [formTable, setFormTable] = useState({
+        tableName: "",
+        accessRights: "",
 
-    const [form, setForm] = useState([
-        {
+    })
+
+    const [formColumn, setFormColumn] = useState({
+        value_0: {
             fieldName: "email",
             inputType: "text",
-            accessRights: "private"
+            accessRights: "private", /*Вибирається тільки тоді, коли таблиця protected*/
+            group: "", /*All, General, add...*/
+            priority: 10, /*Пріорітет відображення у списку*/
+            includeOnSearch: "" /*Дані поля будуть враховуватись у пошуковій строці*/
+            // data: null
         }
+    })
 
-        ]);
+    // const columnTemplate = {
+    //     fieldName: "",
+    //     inputType: "",
+    //     accessRights: ""
+    // }
+    //
+    // const [formColumn, setFormColumn] = useState([
+    //     {
+    //         fieldName: "email",
+    //         inputType: "text",
+    //         accessRights: "private"
+    //     }
+    //
+    //     ]);
 
 
     const rootClasses = [st.Rectangle, st.Visible]
@@ -30,6 +58,38 @@ const MyCreateTableColumnForm = () => {
     // if (visible || visible == null){
     //     rootClasses.push(st.Visible)
     // }
+
+    const handleChange = (key, fieldName, value) => {  // Цікаве рішення з проблемою ітерації обєктів під час заповнення поля...
+        setFormColumn(prevForm => ({
+            ...prevForm,
+            [key]: {
+                ...prevForm[key],
+                [fieldName]: value
+            }
+        }));
+
+        console.log(value)
+    };
+
+    const newValue = `value_${Object.keys(formColumn).length}` // Для автоматичної унікальної назви обєктів
+
+    console.log(formColumn)
+
+
+    function increaseWidth(x) {
+        let numberOfCharacters = x.target.value.length + 3;
+        console.log(numberOfCharacters)
+        if(numberOfCharacters >= 4){
+            let length = numberOfCharacters + "ch";
+            console.log(x.target.style.width)
+            x.target.style.width = length;
+            console.log(x.target.style.width, "x.width")
+
+        }else {x.target.style.width = "auto";}
+    }
+
+
+
 
 
     return (
@@ -39,40 +99,184 @@ const MyCreateTableColumnForm = () => {
 
             <MyFormAlert frame_mode={Frame_Mode.CREATE}/> {/*Думаю тимчасово*/}
 
-            <MySelect/>
+            {/*<MySelect/>*/}
+
+            <div style={{fontSize: "30px", fontWeight: "900"}}>
+                <MyInput
+                    value={formTable.tableName}
+                    onChange={(e) => setFormTable({...formTable, tableName: e.target.value})}
+
+                    inputStyle={InputStyleConst.FIELD_NAME}
+                    placeholder="Введіть назву таблиці..."
+                    type="text"
+
+                    onInput={e => increaseWidth(e)}  /*Хочу щоб поле змінювало динамічно ширину*/
+                />
+
+                {/*<h2 */}
+                {/*    contentEditable*/}
+                {/*    onChange={(e) => setFormTable({...formTable, tableName: e.target.value})}*/}
+                {/*>{formTable.tableName}</h2>*/}
+
+                <MySelect
+                    value={formTable.accessRights}
+                    onChange={(e) => setFormTable({...formTable, accessRights: e})}
+
+
+                    defaultValue="Виберіть права доступу..."
+
+
+                    options={[
+                        {value: "private", name: "private"},
+                        {value: "public", name: "public"},
+                        {value: "protected", name: "protected"},
+                        // {value: -1, name: "показати все"},
+                    ]}
+
+                />
+            </div>
+
+            <MyButton>+</MyButton>
 
             <form>
                 {
-                    Object.keys(form).map((key) =>
+                    Object.keys(formColumn).map((key) =>
 
                         <div className={st.Row}>
-                            {/*<div>{form[key].name}</div>*/}
-                            <MyInput
-                                value={form[key].fieldName}
-                                // onChange={ (e) => {
-                                //     setForm({...form, [key]: e.target.value});
-                                // }}
+                            {/*<div>{formColumn[key].name}</div>*/}
 
-                                // onChange={ (e) => setForm([...form, {[form[key].fieldName]: e.target.value}])}
+                            <MyInput
+                                value={formColumn[key].fieldName}
+
+                                onChange={(e) => handleChange(key, "fieldName", e.target.value)}
+
+                                inputStyle={InputStyleConst.FIELD_NAME}
+                                placeholder="Введіть назву поля..."
+
+                                onInput={e => increaseWidth(e)}
+
+                                // onChange={ (e) => setForm([...formColumn, {[formColumn[key].fieldName]: e.target.value}])}
                                 // TODO ДОРОБИТИ
 
                             />
-                            {/*<MyInput*/}
-                            {/*    value={info[key]}*/}
-                            {/*    // value={form[key].data}*/}
-                            {/*    onChange={ (e) => setInfo({...info, [key]: e.target.value})}*/}
-                            {/*    type={form[key].inputType}*/}
-                            {/*    placeholder={form[key].name}*/}
-                            {/*    inputStyle={InputStyleConst.INPUT}*/}
-                            {/*    disabled={disabled}*/}
-                            {/*    // disabled*/}
-                            {/*/>*/}
+
+                            <MyInput
+                                // value={info[key]}
+                                value={formColumn[key].inputType}
+                                onChange={ (e) => handleChange(key, "inputType", e.target.value)}
+                                // type={formColumn[key].inputType}
+                                // placeholder={formColumn[key].name}
+                                placeholder="Виберіть тип поля..."
+                                inputStyle={InputStyleConst.INPUT}
+                                // disabled={disabled}
+                                // disabled
+                            />
+
+                            <MySelect
+                                value={formColumn[key].accessRights}
+                                onChange={e => handleChange(key, "accessRights", e)}
+
+                                defaultValue="Права доступу"
+
+
+                                options={[
+                                    {value: "private", name: "private"},
+                                    {value: "public", name: "public"},
+                                    // {value: "protected", name: "protected"},
+                                    // {value: -1, name: "показати все"},
+                                ]}
+
+                            />
+
+                            <MySelect
+                                value={formColumn[key].priority}
+                                onChange={e => handleChange(key, "priority", e)}
+
+                                defaultValue="Кількість елементів на сторінці"
+
+
+                                options={[
+                                    {value: 5, name: "5"},
+                                    {value: 10, name: "10"},
+                                    {value: 25, name: "25"},
+                                    {value: -1, name: "показати все"},
+                                ]}
+
+                            />
+
+
                         </div>
                     )
                 }
 
 
-                <div> Додати колонку</div>
+                <div onClick={() => setFormColumn(prevForm => ({
+                    ...prevForm,
+                    // value_2: new Template()
+                    [newValue]: new Template()
+
+                }) )}>
+                    Додати колонку
+                </div>
+
+
+                {/*РОБОТА ПОЛІВ З МАСИВАМИ ОБЄКТІВ*/} {/*TODO*/}
+                {/**/}
+                {/**/}
+
+                {/*{*/}
+                {/*    formColumn.map(obg =>*/}
+                {/*        <div className={st.Row}>*/}
+
+                {/*            <MyInput*/}
+                {/*                value={obg.fieldName}*/}
+                {/*                inputStyle={InputStyleConst.FIELD_NAME}*/}
+                {/*                // onChange={e => setForm( {...formColumn, [obg.fieldName]: e.target.value} )}*/}
+                {/*                onChange={e => {*/}
+                {/*                    const updateForm = formColumn.map(item =>*/}
+                {/*                        item.fieldName === obg.fieldName*/}
+                {/*                            ? {...item, fieldName: e.target.value }*/}
+                {/*                            : item*/}
+                {/*                    );*/}
+                {/*                    setForm(updateForm);*/}
+                {/*                }}*/}
+                {/*                placeholder="Введіть назву поля..."*/}
+                {/*            />*/}
+
+                {/*            <MyInput*/}
+                {/*                value={obg.inputType}*/}
+                {/*                inputStyle={InputStyleConst.INPUT}*/}
+                {/*                // onChange={e => setForm( {...formColumn, [obg.fieldName]: e.target.value} )}*/}
+                {/*                onChange={e => {*/}
+                {/*                    const updateForm = formColumn.map(item =>*/}
+                {/*                        item.inputType === obg.inputType*/}
+                {/*                            ? {...item, inputType: e.target.value }*/}
+                {/*                            : item*/}
+                {/*                    );*/}
+                {/*                    setForm(updateForm);*/}
+                {/*                }}*/}
+                {/*                placeholder="Виберіть тип поля..."*/}
+
+                {/*            />*/}
+
+                {/*            <MySelect/>*/}
+                {/*        </div>*/}
+                {/*    )*/}
+                {/*}*/}
+
+
+
+                {/*/!*<div onClick={() => setForm([...formColumn, columnTemplate])}> Додати колонку</div>*!/*/}
+                {/*<div onClick={() => setForm([...formColumn, new Template()])}>*/}
+                {/*    Додати колонку*/}
+                {/*</div>*/}
+
+
+                {/**/}
+                {/**/}
+                {/*РОБОТА ПОЛІВ З МАСИВАМИ ОБЄКТІВ*/} {/*TODO*/}
+
+
 
                 {/*{frame_mode===Frame_Mode.READ &&*/}
                 {/*    <MyButton >Згенерувати QR-code</MyButton>*/}
@@ -99,3 +303,4 @@ const MyCreateTableColumnForm = () => {
 };
 
 export default MyCreateTableColumnForm;
+

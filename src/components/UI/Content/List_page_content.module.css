@@ -7,6 +7,7 @@
 
 .Frame1{
     width: 360px;
+    min-width: max-content;
     background: rgba(31, 31, 31, 0.97);
     display: flex;
     flex-direction: column;
@@ -17,6 +18,26 @@
 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
+/*.Frame2{*/
+/*    width: 100%;*/
+/*    height: 300px;*/
+
+
+/*    !*align-self: flex-end;*!*/
+/*    !*justify-self: flex-start;*!*/
+/*    !*min-width: max-content;*!*/
+/*    background: rgba(31, 31, 31, 0.97);*/
+/*    !*background: red;*!*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    !*align-items: flex-start;*!*/
+/*    !*justify-content: center;*!*/
+
+/*    position: relative;*/
+
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);*/
+/*}*/
 
 .Alert{
     align-self: center;

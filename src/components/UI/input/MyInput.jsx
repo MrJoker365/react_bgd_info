@@ -34,7 +34,9 @@ const MyInput = (props) => { // {inputStyle}
         //     </form>
         // </div>
 
+
         <input className={rootClass.join(" ")} { ...restProps }/>
+        // <input onBeforeInput={}/>
     );
 };
 

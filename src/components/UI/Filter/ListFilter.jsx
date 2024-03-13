@@ -16,7 +16,7 @@ const ListFilter = ({filter, setFilter}) => {
                 placeholder="Пошук..."
                 inputStyle={InputStyleConst.SEARCH}
             />
-            <MySelect/>
+            {/*<MySelect/>*/}
 
         </div>
     );

@@ -36,6 +36,7 @@ const List_page_content = ({children, informations, setSearchParam}) => {
 
             <div className={st.Frame1}>
 
+                <div>Table name</div>
 
                 <ListFilter
                     filter={filter}
@@ -52,6 +53,9 @@ const List_page_content = ({children, informations, setSearchParam}) => {
 
             <Outlet/>  {/*або children, або Outlet*/}
 
+            {/*<div className={st.Frame2}>*/}
+
+            {/*</div>*/}
 
         </div>
 

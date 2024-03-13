@@ -59,21 +59,57 @@
 
 
 .Search_3 {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 4px;*/
+    /*padding: 8px 12px;*/
+    /*font-size: 16px;*/
+    /*line-height: 1.5;*/
+    /*color: #333;*/
+    /*background-color: #fff;*/
+    /*box-shadow: none;*/
+    /*outline: none;*/
+
+    /*background: rgba(133, 133, 133, 0.21);*/
+    background: none;
+
+    /*width: auto;*/
+    /*max-width: 100%;*/
+    /*min-width: 0;*/
+
+    /*width: 10ch;*/
+
     border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 16px;
+    padding: 5px 9px;
     line-height: 1.5;
-    color: #333;
-    background-color: #fff;
-    box-shadow: none;
+    color: #FFF;
+    /*box-shadow: none;*/
     outline: none;
+    border: none;
+
+    font-size: inherit; /*експеримент...*/
+    font-weight: inherit;/*...*/
+
+
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25); /*спроба_1*/
+
 }
 
 .Search_3:focus {
-    border-color: #007bff;
+    /*border-color: #007bff;*/
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    background: none;
+    color: #6dfff3;
 }
+
+/*.Search_3::placeholder {*/
+/*    !* Задаємо ширину відповідно до тексту у placeholder *!*/
+/*    width: 300px;*/
+/*}*/
+
+
+/*.Search_3_placeholderText {*/
+/*    color: #6dfff3;*/
+/*}*/
 
 
 /*.Search{*/

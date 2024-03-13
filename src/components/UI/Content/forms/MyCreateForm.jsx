@@ -67,7 +67,7 @@ const MyCreateForm = ({callback, form, frame_mode, visible}) => {
 
             <MyFormAlert frame_mode={frame_mode}/>
 
-            <MySelect/>
+            {/*<MySelect/>*/}
 
             <form>
                 {

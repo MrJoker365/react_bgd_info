@@ -2,6 +2,7 @@ import {Route, Routes} from "react-router-dom";
 import Navbar from "./components/UI/Navbar/Navbar";
 import Main_page from "./pages/Main_page";
 import MyCreateTableColumnForm from "./components/UI/Content/forms/MyCreateTableColumnForm";
+import CreateTable_page from "./pages/CreateTable_page";
 function App() {
   return (
 
@@ -11,7 +12,8 @@ function App() {
                   {/*<Route path="main/buildinfo/:id" element={<Main_page/>}/>*/}
                   <Route path="list/*" element={<Main_page/>}/>
                   <Route path="users/*" element={<Main_page/>}/>
-                  <Route path="newtabletemplate" element={<MyCreateTableColumnForm/>}/> {/*TODO тимчасово*/}
+                  {/*<Route path="newtabletemplate" element={<MyCreateTableColumnForm/>}/> /!*TODO тимчасово*!/*/}
+                  <Route path="newtabletemplate" element={<CreateTable_page/>}/> {/*TODO тимчасово*/}
                   {/*<Route path={["main/buildinfo/:id", "main/buildinfo" ]} element={<Main_page/>}/>*/}
               </Route>
 
