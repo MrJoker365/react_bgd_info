@@ -2,7 +2,7 @@ import React from 'react';
 import st from "./MyList.module.css"
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 
-const MyList = ({informations, setVisible, setSearchParam}) => {
+const MyList = ({tableParam, informations, setVisible, setSearchParam}) => {
 
     const navigate = useNavigate();
     const {id} = useParams();
@@ -22,8 +22,13 @@ const MyList = ({informations, setVisible, setSearchParam}) => {
                 } }
                      key={info.id}
                 >
-                    <div>{info.address}</div> {/*TODO замінити на динамічну*/}
-                    <div>01/2023</div>
+                    <div>
+                        <div className={st.D_1}>{info[tableParam.listFormParam.v_1]}</div>
+                        <div className={st.D_2}>{info[tableParam.listFormParam.v_2]}</div>
+                        <div className={st.D_3}>{info[tableParam.listFormParam.v_3]}</div>
+                    </div> {/*TODO замінити на динамічну*/}
+
+                    <div className={st.D_4}>{info[tableParam.listFormParam.v_4]}</div>
                 </div>
 
             )}

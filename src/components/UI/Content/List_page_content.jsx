@@ -9,7 +9,7 @@ import ListFilter from "../Filter/ListFilter";
 import {useFilterHook} from "../../../hooks/useFilterHook";
 import MyCreateForm from "./forms/MyCreateForm";
 
-const List_page_content = ({children, informations, setSearchParam}) => {
+const List_page_content = ({children, tableParam, informations, setSearchParam}) => {
 
 
     const [visible, setVisible] = useState(false); // тимчасово true
@@ -18,7 +18,11 @@ const List_page_content = ({children, informations, setSearchParam}) => {
 
     console.log(filter.query)
 
-    const sortedAndSearchedList = useFilterHook(informations, "address", filter.sort, filter.query) // власний hook  (usePostsHook.js)
+    const sortedAndSearchedList = useFilterHook(informations, "address", filter.sort, filter.query)
+
+    // const sortedAndSearchedList = informations === null
+    //     ? ""
+    //     : useFilterHook(informations, "address", filter.sort, filter.query)
 
 
 
@@ -36,14 +40,25 @@ const List_page_content = ({children, informations, setSearchParam}) => {
 
             <div className={st.Frame1}>
 
-                <div>Table name</div>
-
                 <ListFilter
                     filter={filter}
                     setFilter={setFilter}
                 />
 
-                <MyList informations={sortedAndSearchedList} setVisible={setVisible} setSearchParam={setSearchParam}/>  {/*покищо працює, потім вдосконалю...*/}
+                {tableParam.accessRight
+                    ? <div className={st.AccessRight}>{tableParam.accessRight}</div>
+                    : <div className={st.AccessRight}>Права доступу...</div>
+
+                }
+
+                {tableParam.tableName
+                    ? <div className={st.TableName}>{tableParam.tableName}</div>
+                    : <div className={st.TableName} style={{color: "#858585"}}>Назва таблиці...</div>
+
+                }
+
+
+                <MyList tableParam={tableParam} informations={sortedAndSearchedList} setVisible={setVisible} setSearchParam={setSearchParam}/>  {/*покищо працює, потім вдосконалю...*/}
 
 
             </div>

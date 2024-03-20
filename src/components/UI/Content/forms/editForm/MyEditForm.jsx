@@ -4,23 +4,24 @@ import MyInput from "../../../input/MyInput";
 import {InputStyleConst} from "../../../../../constant/Const";
 import MySelect from "../../../select/MySelect";
 
-const MyEditForm = () => {
+const MyEditForm = ({tableParam, setTableParam}) => {
 
-    const paramTable = {
+    const tableFieldNames = {
         tableName: "Назва таблиці",
         accessRight: "Права доступу",
         buttons: "Додаткові кнопки"
     }
 
 
-    const [dataTable, setDataTable] = useState({
-        tableName: "",
-        accessRight: "",
-        buttons: ""
-    })
+    // const [tableParam, setTableParam] = useState({
+
+    //     tableName: "",
+    //     accessRight: "",
+    //     buttons: ""
+    // })
 
 
-    const paramColumns = {
+    const columnFieldNames = {
         nameOfField: "Назва поля",
         typeOfField: "Тип поля вводу",
         category: "Категорія",
@@ -29,7 +30,7 @@ const MyEditForm = () => {
         priority: "Пріорітет відображень у списку"
     }
 
-    const [dataColumns, setDataColumns] = useState({
+    const [columnsParam, setColumnsParam] = useState({
         nameOfField: "",
         typeOfField: "",
         category: "",
@@ -41,7 +42,7 @@ const MyEditForm = () => {
 
 
 
-    // const [paramTable, setParamTable] = useState({
+    // const [tableFieldNames, setParamTable] = useState({
     //     tableName: {
     //         fieldName: "Назва таблиці",
     //         data: ""
@@ -55,16 +56,34 @@ const MyEditForm = () => {
 
 
 
+    const [table_form_visible, setTable_form_visible] = useState(true)
+
+
+
     return (
         <div className={st.Rectangle}>
             <div className={st.Frame_1}>
 
-                <div>
+                <div
+                //     onClick={ () =>
+                //         table_form_style.display
+                //         ? delete table_form_style.display
+                //         : table_form_style.display === "none"
+                // }
+
+                        onClick={ () =>
+                            table_form_visible
+                            ? setTable_form_visible(false)
+                            : setTable_form_visible(true)
+                    }
+
+
+                >
                     Table
                 </div>
 
                 <div>
-                    Column_1
+                    Columns:
                 </div>
 
 
@@ -73,25 +92,28 @@ const MyEditForm = () => {
             </div>
 
             <div className={st.Frame_2}>
-                <form style={{gap: "15px"}}>
+
+
+
+                <form className={st.TableForm} aria-current={table_form_visible === false}>
 
                     <div className={st.Row}>
-                        <div>{paramTable.tableName}</div>
+                        <div>{tableFieldNames.tableName}</div>
 
                         <MyInput
-                            value={dataTable.tableName}
-                            onChange={ e => setDataTable({...dataTable, tableName: e.target.value} )}
+                            value={tableParam.tableName}
+                            onChange={ e => setTableParam({...tableParam, tableName: e.target.value} )}
                             inputStyle={InputStyleConst.FIELD_NAME}
                         />
                     </div>
 
 
                     <div className={st.Row}>
-                        <div>{paramTable.accessRight}</div>
+                        <div>{tableFieldNames.accessRight}</div>
 
                         <MySelect
-                            value={dataTable.accessRight}
-                            onChange={(e) => setDataTable({...dataTable, accessRight: e})}
+                            value={tableParam.accessRight}
+                            onChange={(e) => setTableParam({...tableParam, accessRight: e})}
 
 
                             defaultValue="Виберіть права доступу..."
@@ -109,11 +131,11 @@ const MyEditForm = () => {
                     </div>
 
                     <div className={st.Row}>
-                        <div>{paramTable.buttons}</div>  {/*TODO зробити як у відео React select*/}
+                        <div>{tableFieldNames.buttons}</div>  {/*TODO зробити як у відео React select*/}
 
                         <MySelect
-                            value={dataTable.accessRight}
-                            onChange={(e) => setDataTable({...dataTable, accessRight: e})}
+                            value={tableParam.accessRight}
+                            onChange={(e) => setTableParam({...tableParam, accessRight: e})}
 
 
                             defaultValue="Виберіть права доступу..."
@@ -136,15 +158,15 @@ const MyEditForm = () => {
 
 
                     {/*{*/}
-                    {/*    Object.keys(paramTable).map((key) =>*/}
+                    {/*    Object.keys(tableFieldNames).map((key) =>*/}
 
                     {/*        <div className={st.Row}>*/}
-                    {/*            <div>{paramTable[key]}</div>*/}
+                    {/*            <div>{tableFieldNames[key]}</div>*/}
 
                     {/*            <MyInput*/}
 
-                    {/*                value={dataTable[key]}*/}
-                    {/*                onChange={ e => setDataTable({...dataTable, [key]: e.target.value} )}*/}
+                    {/*                value={tableParam[key]}*/}
+                    {/*                onChange={ e => setDataTable({...tableParam, [key]: e.target.value} )}*/}
 
                     {/*                inputStyle={InputStyleConst.FIELD_NAME}*/}
                     {/*            />*/}
@@ -159,22 +181,22 @@ const MyEditForm = () => {
                 <form style={{gap: "15px"}}>
 
                     <div className={st.Row}>
-                        <div>{paramColumns.nameOfField}</div>
+                        <div>{columnFieldNames.nameOfField}</div>
 
                         <MyInput
-                            value={dataColumns.nameOfField}
-                            onChange={ e => setDataColumns({...dataColumns, nameOfField: e.target.value} )}
+                            value={columnsParam.nameOfField}
+                            onChange={ e => setColumnsParam({...columnsParam, nameOfField: e.target.value} )}
                             inputStyle={InputStyleConst.FIELD_NAME}
                         />
                     </div>
 
 
                     <div className={st.Row}>
-                        <div>{paramColumns.typeOfField}</div>
+                        <div>{columnFieldNames.typeOfField}</div>
 
                         <MySelect
-                            value={dataColumns.typeOfField}
-                            onChange={(e) => setDataColumns({...dataColumns, typeOfField: e})}
+                            value={columnsParam.typeOfField}
+                            onChange={(e) => setColumnsParam({...columnsParam, typeOfField: e})}
 
 
                             defaultValue="Виберіть тип поля"

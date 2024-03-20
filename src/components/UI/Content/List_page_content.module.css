@@ -6,6 +6,8 @@
 }
 
 .Frame1{
+    /*padding-top: 10px;*/
+    padding: 10px 10px;
     width: 360px;
     min-width: max-content;
     background: rgba(31, 31, 31, 0.97);
@@ -17,6 +19,26 @@
     position: relative;
 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+.TableName {
+    padding: 0 0 10px 20px;
+    color: #FFFFFF;
+
+    font-size: 18px;
+    font-weight: 700;
+    font-family: Inter, "sans-serif";
+
+}
+
+.AccessRight {
+    padding: 3px 20px;
+    color: #858585;
+
+    font-size: 14px;
+    font-weight: 700;
+    font-family: Inter, "sans-serif";
 }
 
 /*.Frame2{*/

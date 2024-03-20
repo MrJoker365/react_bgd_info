@@ -10,11 +10,24 @@ import MyEditForm from "../components/UI/Content/forms/editForm/MyEditForm";
 
 const CreateTablePage = () => {
 
+    const [tableParam, setTableParam] = useState({
+        tableName: "Львівський універ",
+        accessRight: "",
+        buttons: "",
+        searchInclude: "",
+        listFormParam: {
+            v_1: "address",
+            v_2: "electric_box",
+            v_3: "place_of_overlap",
+            v_4: "id"
+        }
+    })
+
     let getInfos = () => {
 
         let info = [];
 
-        for (let i = 1; i < 20; i++) {
+        for (let i = 1; i < 30; i++) {
 
 
             const some = {
@@ -76,13 +89,13 @@ const CreateTablePage = () => {
         <div style={{display: "flex", flexDirection: "column",justifyContent:"space-between", width: "100%", position: "relative"}}>
 
 
-            <List_page_content informations={infoBuilds} setSearchParam={setSearchParam}>
+            <List_page_content tableParam={tableParam} informations={infoBuilds} setSearchParam={setSearchParam}>
                 <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_2} />
             </List_page_content>
 
             {/*<div className={st.Frame2}> hello </div>*/}
 
-            <MyEditForm/>
+            <MyEditForm tableParam={tableParam} setTableParam={setTableParam}/>
 
         </div>
 

@@ -16,33 +16,49 @@
     /*border: 1px solid red ;*/
 }
 
-.Row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 30px;
-    background: #464646;
-
-    font-family: Inter, "sans-serif";
-    font-size: 16px;
-    font-weight: 600;
-    color: #FFFFFF;
 
 
-    /*height: 40px;*/
-    height: max-content;
-    width: 100%;
-    padding: 10px 10px;
-}
+
+
+/*.Row {*/ /*Робоча частина V_2*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*    gap: 30px;*/
+/*    !*background: #464646;*!*/
+
+/*    background: #1d2019;*/
+/*    !*border: 1px solid #464646;*!*/
+/*    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);*/
+
+
+/*    font-family: Inter, "sans-serif";*/
+/*    font-size: 16px;*/
+/*    font-weight: 600;*/
+/*    color: #FFFFFF;*/
+
+
+/*    !*height: 40px;*!*/
+/*    height: max-content;*/
+/*    width: 100%;*/
+/*    margin: 10px 10px;*/
+/*    padding: 10px 10px;*/
+/*}*/
+
+
+
+
+
+
 
 /*.Row > div {*/
 /*    width: 100%;*/
 /*}*/
 
-.Frame > div:nth-child(even){
-    background: none;
-}
+/*.Frame > div:nth-child(even){*/ /*Раніше було*/
+/*    background: none;*/
+/*}*/
 
 /*.Row div:first-child {*/
 /*    width: 150px;*/
@@ -51,4 +67,67 @@
 /*.Row div:nth-child(2) {*/
 /*    width: 150px;*/
 /*}*/
+
+.Row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: rgba(0, 0, 0, 0.24);
+    border-radius: 4px;
+    /*box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);*/
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    font-family: Inter, "sans-serif";
+    font-size: 16px;
+    line-height: 1.5; /* Improved readability */
+    font-weight: 600;
+    color: #FFFFFF; /* Ensure a high contrast ratio between text and background */
+    height: max-content;
+    width: 100%;
+    margin: 5px 5px;
+    padding: 10px 10px;
+}
+
+/* Add clear outlines for focusable elements */
+.Row a:focus,
+.Row button:focus,
+.Row:focus {
+    outline: 3px solid #0066FF; /* A clearly visible color outlining focus */
+}
+
+/* Add hover effects for clickable elements */
+.Row a:hover,
+.Row:hover {
+    background-color: rgba(255, 255, 255, 0.09); /* Change background to a clearly visible color for clickable links or buttons */
+    color: #FFFFFF; /* Keep the text readable when hovering */
+    transition: background-color 0.3s ease; /* Transition for a smooth color change */
+}
+
+.D_1{
+
+}
+
+.D_2{
+
+    font-size: 14px;
+    color: #6dfff3;
+}
+
+.D_3{
+
+    font-size: 12px;
+    color: #858585;
+}
+
+.D_4{
+
+    font-size: 12px;
+    color: #6dfff3;
+}
+
+
+
+
+
 

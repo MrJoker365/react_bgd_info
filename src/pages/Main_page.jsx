@@ -14,6 +14,27 @@ import {Frame_Mode, InputStyleConst} from "../constant/Const";
 const MainPage = () => {
 
 
+
+
+
+    const [tableParam, setTableParam] = useState({ /*TODO тимчасво*/
+        tableName: "Львівський універ",
+        accessRight: "private",
+        buttons: "",
+        searchInclude: "",
+        listFormParam: {
+            v_1: "address",
+            v_2: "electric_box",
+            v_3: "place_of_overlap",
+            v_4: "id"
+        }
+    })
+
+
+
+
+
+
     // Весь список
     let getInfos = () => {
 
@@ -214,7 +235,7 @@ const MainPage = () => {
         // renderContent()
 
         <Routes>
-            <Route element={<List_page_content informations={infoBuilds} setSearchParam={setSearchParam}/>}>
+            <Route element={<List_page_content tableParam={tableParam} informations={infoBuilds} setSearchParam={setSearchParam}/>}>
                 <Route path="read" element={ <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_2} visible={visible}/>}/>
                 <Route path="change" element={ <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={changeInfo} form={form_FieldName_2} visible={visible} />}/>
             </Route>
