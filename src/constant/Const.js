@@ -2,7 +2,8 @@
 export const Frame_Mode = {
     READ: "Read",
     CHANGE: "Change",
-    CREATE: "Create"
+    CREATE: "Create",
+    CREATE_TABLE: "Create_table"
 }
 
 export const InputStyleConst = {

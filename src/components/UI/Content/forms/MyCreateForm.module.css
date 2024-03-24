@@ -28,6 +28,25 @@
     font-family: Inter, sans-serif;
     /*max-width: max-content;*/
 
+
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    padding: 10px 10px;
+
+}
+
+.Row[create_table = "true"]:hover{
+    background-color: rgba(255, 255, 255, 0.09);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    transition: background-color 0.3s ease;
+}
+
+.Row[create_table = "true"][aria-current = "true"]{
+
+    background: rgba(0, 0, 0, 0.24);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    color: #6dfff3;
 }
 
 

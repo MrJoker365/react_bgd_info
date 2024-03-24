@@ -9,7 +9,7 @@ import ListFilter from "../Filter/ListFilter";
 import {useFilterHook} from "../../../hooks/useFilterHook";
 import MyCreateForm from "./forms/MyCreateForm";
 
-const List_page_content = ({children, tableParam, informations, setSearchParam}) => {
+const List_page_content = ({children, tableParam, informations, setSearchParam, isCreatingTable}) => {
 
 
     const [visible, setVisible] = useState(false); // тимчасово true
@@ -18,7 +18,7 @@ const List_page_content = ({children, tableParam, informations, setSearchParam})
 
     console.log(filter.query)
 
-    const sortedAndSearchedList = useFilterHook(informations, "address", filter.sort, filter.query)
+    const sortedAndSearchedList = useFilterHook(informations, ["id", "col_1"], filter.sort, filter.query)
 
     // const sortedAndSearchedList = informations === null
     //     ? ""
@@ -58,7 +58,11 @@ const List_page_content = ({children, tableParam, informations, setSearchParam})
                 }
 
 
-                <MyList tableParam={tableParam} informations={sortedAndSearchedList} setVisible={setVisible} setSearchParam={setSearchParam}/>  {/*покищо працює, потім вдосконалю...*/}
+                <MyList tableParam={tableParam} informations={sortedAndSearchedList}
+                        setVisible={setVisible} setSearchParam={setSearchParam}
+                        isCreatingTable={isCreatingTable}
+
+                />  {/*покищо працює, потім вдосконалю...*/}
 
 
             </div>

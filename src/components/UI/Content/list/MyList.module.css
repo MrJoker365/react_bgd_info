@@ -126,7 +126,16 @@
     color: #6dfff3;
 }
 
-
+.Strip{
+    height: 2px;
+    background: linear-gradient(to right, transparent, #999, transparent);
+    margin: 2em 0;
+    width: 100%;
+    color: #bdbdbd;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+}
 
 
 

@@ -14,6 +14,8 @@ const MyFormAlert = ({frame_mode}) => {
             break;
         case Frame_Mode.CREATE: rootClasses.push(st.color_blue); text = "create"
             break;
+        case Frame_Mode.CREATE_TABLE: rootClasses.push(st.color_blue); text = "creating table"
+            break;
 
     }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import st from "./MyList.module.css"
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 
-const MyList = ({tableParam, informations, setVisible, setSearchParam}) => {
+const MyList = ({tableParam, informations, setVisible, setSearchParam, isCreatingTable}) => {
 
     const navigate = useNavigate();
     const {id} = useParams();
@@ -32,6 +32,31 @@ const MyList = ({tableParam, informations, setVisible, setSearchParam}) => {
                 </div>
 
             )}
+
+
+
+
+            {isCreatingTable && <div className={st.Strip}>
+                Приклад...
+            </div>}
+
+            {isCreatingTable &&
+
+                <div className={st.Row}
+                     // key={info.id}
+                >
+                    <div>
+                        <div className={st.D_1}>Пріорітет 1</div>
+                        <div className={st.D_2}>Пріорітет 2</div>
+                        <div className={st.D_3}>Пріорітет 3</div>
+                    </div> {/*TODO замінити на динамічну*/}
+
+                    <div className={st.D_4}>4</div>
+                </div>
+
+            }
+
+
 
         {/*    <div className={st.Row}>*/}
         {/*        <div>*/}

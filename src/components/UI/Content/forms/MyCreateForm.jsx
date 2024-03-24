@@ -6,7 +6,7 @@ import MySelect from "../../select/MySelect";
 import {Frame_Mode, InputStyleConst} from "../../../../constant/Const";
 import MyFormAlert from "../../alert/MyFormAlert";
 
-const MyCreateForm = ({callback, form, frame_mode, visible}) => {
+const MyCreateForm = ({callback, form, frame_mode, visible, selectedRow, setSelectedRow}) => {
 
     // const [info, setInfo] = useState({
     //     "address": "Клепарівська 18",
@@ -16,8 +16,13 @@ const MyCreateForm = ({callback, form, frame_mode, visible}) => {
     //     "number_of_people": 70
     // })
 
-    let disabled = false;
-    if (frame_mode === Frame_Mode.READ) disabled = true;
+
+    const disabled = frame_mode === Frame_Mode.READ;
+
+    const is_createTable_mode = frame_mode === Frame_Mode.CREATE_TABLE ? "true" : false /*іменно так і має бути....*/
+
+    // let disabled = false;
+    // if (frame_mode === Frame_Mode.READ) disabled = true;
 
     const rootClasses = [st.Rectangle]
 
@@ -26,6 +31,8 @@ const MyCreateForm = ({callback, form, frame_mode, visible}) => {
     }
 
     const [info, setInfo] = useState({})
+
+    // const [selectedRow, setSelectedRow] = useState("")
 
 
     useEffect(() => {
@@ -69,11 +76,16 @@ const MyCreateForm = ({callback, form, frame_mode, visible}) => {
 
             {/*<MySelect/>*/}
 
-            <form>
+            <form style={{gap: "0"}} >
                 {
                     Object.keys(form).map((key) =>
 
-                            <div className={st.Row}>
+                            <div className={st.Row}
+
+                                 create_table = {is_createTable_mode}
+                                 onClick={ () =>setSelectedRow && setSelectedRow(key)}
+                                 aria-current={selectedRow === key}
+                            >
                                 <div>{form[key].name}</div>
                                 <MyInput
                                     value={info[key]}
