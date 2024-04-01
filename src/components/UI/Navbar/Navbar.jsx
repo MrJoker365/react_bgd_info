@@ -1,8 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import st from "./Navbar.module.css"
-import {Link, NavLink, Outlet} from "react-router-dom";
+import {Link, NavLink, Outlet, useLocation} from "react-router-dom";
+import {useFetchingHook} from "../../../hooks/useFetchingHook";
+import InfoBuildService from "../../../API/InfoBuildService";
 
 const Navbar = () => {
+
+    const URL = useLocation().pathname;
+
+    const [AllTableNames, setAllTableNames] = useState([])
+
+    const [fetching_AllTableNames, isLoading_AllTableNames, error_AllTableNames] = useFetchingHook(async (id) => {
+        const response = await InfoBuildService.getAllTableName(id)
+        setAllTableNames(response.data)
+    })
+
+
 
     const [active_1, setActive_1] = useState(false);
 
@@ -15,8 +28,14 @@ const Navbar = () => {
     const [activeButton, setActiveButton] = useState({
         main_buttons: "",
         table_mode:"read",
+        selected_table: "",
     });
 
+
+
+    useEffect(() => {
+        fetching_AllTableNames(1);
+    }, [activeButton.main_buttons === 'tables']); /*Варто зробити менш ресурсозатратно...*/
 
 
     return (
@@ -80,7 +99,7 @@ const Navbar = () => {
 
                                 <div className={st.Main_buttons}
                                     onClick={() => setActiveButton({...activeButton, main_buttons: "tables"})}
-                                    aria-current={activeButton.main_buttons === 'tables'}
+                                    aria-current={activeButton.main_buttons === 'tables' || URL.includes("/list") }
 
                                 ><Link to="/list/read" className={st.Link}
 
@@ -103,16 +122,33 @@ const Navbar = () => {
                                         aria-current={activeButton.table_mode === 'change'}
 
                                     ><Link to="/list/change" className={st.Link}>Change</Link></div>
+
+                                    <div
+                                        className={st.RadioButton}
+
+                                        onClick={() => setActiveButton({...activeButton, table_mode: "create"})}
+                                        aria-current={activeButton.table_mode === 'create'}
+
+                                    ><Link to="/list/create" className={st.Link}>Create</Link></div>
                                 </div>
 
                                 <nav>
                                     <ul>
 
-                                        <li
-                                            onClick={() => setActiveButton_2('create_new')}
-                                            className={activeButton_2 === 'create_new' ? 'active' : ''}
-                                            aria-current={activeButton_2 === 'create_new'}
-                                        ><Link to="/list/create" className={st.Link}>Create new</Link></li>
+                                        {AllTableNames.map((entity) =>
+                                            <li
+                                                onClick={() => setActiveButton({...activeButton, selected_table: entity})}
+                                                aria-current={activeButton.selected_table === entity}
+                                            >
+                                                {entity}
+                                            </li>
+                                        )}
+
+                                        {/*<li*/}
+                                        {/*    onClick={() => setActiveButton_2('create_new')}*/}
+                                        {/*    className={activeButton_2 === 'create_new' ? 'active' : ''}*/}
+                                        {/*    aria-current={activeButton_2 === 'create_new'}*/}
+                                        {/*><Link to="/list/create" className={st.Link}>Create new</Link></li>*/}
 
 
                                         {/*<li>Delete</li>*/}

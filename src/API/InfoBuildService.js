@@ -11,16 +11,32 @@ export default class InfoBuildService {
         //     }
         // })
 
-        const response = await axios.get("http://localhost:8081/api/getAll")
+        const response = await axios.get("http://localhost:8082/api/getAll") /*TODO Всюди тимчасос порт 8082 як заглушка*/
         return response;
     }
 
     static async getById(id) {
-        return await axios.get("http://localhost:8081/api/getById/" + id);
+        return await axios.get("http://localhost:8082/api/getById/" + id);  /*TODO Всюди тимчасос порт 8082 як заглушка*/
     }
 
     static async add (data){
-        return await axios.post("http://localhost:8081/api/add", data)
+        return await axios.post("http://localhost:8082/api/add", data) /*TODO Всюди тимчасос порт 8082 як заглушка*/
+    }
+
+    static async createTable (data){
+        return await axios.post("http://localhost:8081/api/createTable", data)
+    }
+
+
+
+    static async getAllTableName(id) {
+        return await axios.get("http://localhost:8081/api/getTableNameBySys_manager_id" , {
+            params: {
+                id: id
+            }
+        })
+
+        // return await axios.get("http://localhost:8081/api/getTableNameBySys_manager_id?id=1")
     }
 
 

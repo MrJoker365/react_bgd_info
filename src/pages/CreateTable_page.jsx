@@ -7,26 +7,22 @@ import MyCreateTableColumnForm from "../components/UI/Content/forms/MyCreateTabl
 
 import st from "../components/UI/Content/List_page_content.module.css"
 import MyEditForm from "../components/UI/Content/forms/editForm/MyEditForm";
+import {useFetchingHook} from "../hooks/useFetchingHook";
+import InfoBuildService from "../API/InfoBuildService";
 
 const CreateTablePage = () => {
 
     const [tableParam, setTableParam] = useState({
         tableName: "Львівський універ",
         accessRight: "",
-        buttons: "",
-        searchInclude: [],
+        buttons: [null],
+        searchInclude: [null],
         listFormParam: {
-            v_1: "address",
-            v_2: "electric_box",
+            v_1: "",
+            v_2: "",
             v_3: "col_1",
             v_4: "id"
         },
-        listFormParam_2: {
-            v_1: "address",
-            v_2: "electric_box",
-            v_3: "place_of_overlap",
-            v_4: "id"
-        }
     })
 
     // let getInfos = () => {
@@ -55,6 +51,18 @@ const CreateTablePage = () => {
         id: 1,
         col_1: "Hello"
     }]);
+
+    console.log(infoBuilds)
+
+    // const [selectedData, setSelectedData] = useState()
+
+    const selectedData = infoBuilds[0];
+    const setSelectedData = (newData) => {const updateData = infoBuilds.map(item => /*ЕКСПЕРИМЕНТ, можливо продвину дальше*/
+       item.id === item.id && newData
+    )
+        setInfoBuilds(updateData)
+
+    }
 
     const[searchParam, setSearchParam] = useSearchParams(); /*Покищо не знаю чи потрібно*/
 
@@ -139,7 +147,7 @@ const CreateTablePage = () => {
             accessRight: false,  /*коли true, то доступ до даних мають ВСІ...*/
             // includeInSearch: false, /*коли true, то поле буде видимим для поля Search*/
             // priority: "", /*1, 2, 3, 4*/
-            data: ""
+            // data: ""
         },
         col_1: {
             name: "Адреса",
@@ -148,22 +156,25 @@ const CreateTablePage = () => {
             accessRight: false,  /*коли true, то доступ до даних мають ВСІ...*/
             // includeInSearch: false, /*коли true, то поле буде видимим для поля Search*/
             // priority: "", /*1, 2, 3, 4*/
-            data: ""
+            // data: ""
         }
     })
 
-    const getPriority = (p) => {
-        Object.keys(form_FieldName_3).map( (key) => {
-            // form_FieldName_3[key].priority === p ? return `${key}`
-
-            if (form_FieldName_3[key].priority === p) return `${key}`
-
-        } )
-    }
 
 
     const [selectedRow, setSelectedRow] = useState("id");
 
+    const [createTable_serv] = useFetchingHook(async (data) => {
+        const response = InfoBuildService.createTable(data)
+        console.log(response) // потім треба буде обробляти на наявність такох інфи або іншу некоректність
+    })
+
+    const save_settings = () => {
+        createTable_serv({...tableParam, columnsParam: form_FieldName_3})
+        console.log({...tableParam, columnsParam: form_FieldName_3})
+        // return ({...tableParam, columnsParam: form_FieldName_3})
+
+    }
 
     const render = () =>
         <div style={{display: "flex", flexDirection: "column",justifyContent:"space-between", width: "100%", position: "relative"}}>
@@ -171,6 +182,7 @@ const CreateTablePage = () => {
 
             <List_page_content tableParam={tableParam} informations={infoBuilds} setSearchParam={setSearchParam} isCreatingTable={true}>
                 <MyCreateForm frame_mode={Frame_Mode.CREATE_TABLE} form={form_FieldName_3}
+                              data={selectedData} setData={setSelectedData}
                               selectedRow={selectedRow} setSelectedRow={setSelectedRow}/>
             </List_page_content>
 
@@ -179,6 +191,7 @@ const CreateTablePage = () => {
             <MyEditForm tableParam={tableParam} setTableParam={setTableParam}
                         form_FieldName_3={form_FieldName_3} setForm_FieldName_3={setForm_FieldName_3}
                         selectedRow={selectedRow} setSelectedRow={setSelectedRow}
+                        save_settings={save_settings}
             />
 
         </div>
@@ -200,3 +213,66 @@ const CreateTablePage = () => {
 };
 
 export default CreateTablePage;
+
+
+
+
+const example = {
+    "tableName": "Львівський універ",
+    "accessRight": "private",
+    "buttons": [
+        null
+    ],
+    "searchInclude": [
+        null,
+        "col_1",
+        "col_2",
+        "col_3"
+    ],
+    "listFormParam": {
+        "v_1": "col_2",
+        "v_2": "col_1",
+        "v_3": "col_3",
+        "v_4": "id"
+    },
+    "columnsParam": {
+        "id": {
+            "name": "№",
+            "inputType": "number",
+            "category": "general",
+            "accessRight": false
+        },
+        "col_1": {
+            "name": "Адреса",
+            "inputType": "text",
+            "category": "all",
+            "accessRight": false
+        },
+        "col_2": {
+            "fieldName": "",
+            "inputType": "",
+            "category": "general",
+            "accessRights": "",
+            "name": "Ім'я"
+        },
+        "col_3": {
+            "fieldName": "",
+            "inputType": "number",
+            "category": "general",
+            "accessRights": "",
+            "name": "Телефон",
+            "accessRight": "false"
+        }
+    }
+}
+
+const example_2 = [
+    {
+        "id": 1,
+        "col_1": "Клепарівська 27",
+        "col_2": "5",
+        "col_3": "307",
+        "col_4": "КН-42с",
+        "col_5": "Петренко О.О."
+    }
+]

@@ -38,14 +38,14 @@ const MyCreateTableColumnForm = () => {
     })
 
     // const columnTemplate = {
-    //     fieldName: "",
+    //     name: "",
     //     inputType: "",
     //     accessRights: ""
     // }
     //
     // const [formColumn, setFormColumn] = useState([
     //     {
-    //         fieldName: "email",
+    //         name: "email",
     //         inputType: "text",
     //         accessRights: "private"
     //     }
@@ -155,7 +155,7 @@ const MyCreateTableColumnForm = () => {
 
                                 onInput={e => increaseWidth(e)}
 
-                                // onChange={ (e) => setForm([...formColumn, {[formColumn[key].fieldName]: e.target.value}])}
+                                // onChange={ (e) => setForm([...formColumn, {[formColumn[key].name]: e.target.value}])}
                                 // TODO ДОРОБИТИ
 
                             />
@@ -229,13 +229,13 @@ const MyCreateTableColumnForm = () => {
                 {/*        <div className={st.Row}>*/}
 
                 {/*            <MyInput*/}
-                {/*                value={obg.fieldName}*/}
+                {/*                value={obg.name}*/}
                 {/*                inputStyle={InputStyleConst.FIELD_NAME}*/}
-                {/*                // onChange={e => setForm( {...formColumn, [obg.fieldName]: e.target.value} )}*/}
+                {/*                // onChange={e => setForm( {...formColumn, [obg.name]: e.target.value} )}*/}
                 {/*                onChange={e => {*/}
                 {/*                    const updateForm = formColumn.map(item =>*/}
-                {/*                        item.fieldName === obg.fieldName*/}
-                {/*                            ? {...item, fieldName: e.target.value }*/}
+                {/*                        item.name === obg.name*/}
+                {/*                            ? {...item, name: e.target.value }*/}
                 {/*                            : item*/}
                 {/*                    );*/}
                 {/*                    setForm(updateForm);*/}
@@ -246,7 +246,7 @@ const MyCreateTableColumnForm = () => {
                 {/*            <MyInput*/}
                 {/*                value={obg.inputType}*/}
                 {/*                inputStyle={InputStyleConst.INPUT}*/}
-                {/*                // onChange={e => setForm( {...formColumn, [obg.fieldName]: e.target.value} )}*/}
+                {/*                // onChange={e => setForm( {...formColumn, [obg.name]: e.target.value} )}*/}
                 {/*                onChange={e => {*/}
                 {/*                    const updateForm = formColumn.map(item =>*/}
                 {/*                        item.inputType === obg.inputType*/}

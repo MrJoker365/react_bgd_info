@@ -6,7 +6,7 @@ import MySelect from "../../select/MySelect";
 import {Frame_Mode, InputStyleConst} from "../../../../constant/Const";
 import MyFormAlert from "../../alert/MyFormAlert";
 
-const MyCreateForm = ({callback, form, frame_mode, visible, selectedRow, setSelectedRow}) => {
+const MyCreateForm = ({callback, form, data, setData, frame_mode, visible, selectedRow, setSelectedRow}) => {
 
     // const [info, setInfo] = useState({
     //     "address": "Клепарівська 18",
@@ -30,40 +30,39 @@ const MyCreateForm = ({callback, form, frame_mode, visible, selectedRow, setSele
         rootClasses.push(st.Visible)
     }
 
-    const [info, setInfo] = useState({})
-
-    // const [selectedRow, setSelectedRow] = useState("")
-
-
-    useEffect(() => {
-        const updateInfo = {}
-        for (const key in form) {
-            updateInfo[key] = form[key].data;
-        }
-
-        setInfo(updateInfo)
-    }, [form]);
-
-
-    const addNewPost = (e) => {
-        e.preventDefault();
-        const newPost = { // функція, яка передається до callback
-            ...info,
-            // id: Date.now()
-        }
-        callback(newPost)
-
-        let emptyInfo = {}
-        Object.keys(info).map((key) => {
-            // setInfo({...info, [key]:""})
-            emptyInfo = {...emptyInfo, [key]: ''}
-            }
-        )
-        setInfo(emptyInfo)
+    // const [info, setInfo] = useState({})
 
 
 
-    }
+    // useEffect(() => {
+    //     const updateInfo = {}
+    //     for (const key in form) {
+    //         updateInfo[key] = form[key].data;
+    //     }
+    //
+    //     setInfo(updateInfo)
+    // }, [form]);
+
+
+    // const addNewPost = (e) => {
+    //     e.preventDefault();
+    //     const newPost = { // функція, яка передається до callback
+    //         ...info,
+    //         // id: Date.now()
+    //     }
+    //     callback(newPost)
+    //
+    //     let emptyInfo = {}
+    //     Object.keys(info).map((key) => {
+    //         // setInfo({...info, [key]:""})
+    //         emptyInfo = {...emptyInfo, [key]: ''}
+    //         }
+    //     )
+    //     setInfo(emptyInfo)
+    //
+    //
+    //
+    // }
 
     return (
 
@@ -88,9 +87,9 @@ const MyCreateForm = ({callback, form, frame_mode, visible, selectedRow, setSele
                             >
                                 <div>{form[key].name}</div>
                                 <MyInput
-                                    value={info[key]}
+                                    value={data && data[key]}
                                     // value={form[key].data}
-                                    onChange={ (e) => setInfo({...info, [key]: e.target.value})}
+                                    onChange={ (e) => setData({...data, [key]: e.target.value})}
                                     type={form[key].inputType}
                                     placeholder={form[key].name}
                                     inputStyle={InputStyleConst.INPUT}
@@ -116,13 +115,13 @@ const MyCreateForm = ({callback, form, frame_mode, visible, selectedRow, setSele
 
                 {frame_mode===Frame_Mode.CREATE &&
                     <div style={{display:"flex", gap:"30px"}}>
-                        <MyButton onClick={(e) => addNewPost(e)}>Створити</MyButton>
+                        {/*<MyButton onClick={(e) => addNewPost(e)}>Створити</MyButton>*/}
                         <MyButton >Скасувати</MyButton>
                     </div>
                 }
                 {frame_mode===Frame_Mode.CHANGE &&
                     <div style={{display:"flex", gap:"30px"}}>
-                        <MyButton onClick={(e) => addNewPost(e)}>Зберегти зміни</MyButton>
+                        {/*<MyButton onClick={(e) => addNewPost(e)}>Зберегти зміни</MyButton>*/}
                         <MyButton >Скасувати</MyButton>
                     </div>
                 }

@@ -7,8 +7,8 @@ import MySelect from "../../../select/MySelect";
 
 
 class Template {
-    constructor(fieldName = "", inputType = "",category = "", accessRights = "") {
-        this.fieldName = fieldName;
+    constructor(name = "", inputType = "",category = "", accessRights = "") {
+        this.name = name;
         this.inputType = inputType;
         this.category = category;
         this.accessRights = accessRights;
@@ -16,7 +16,7 @@ class Template {
 }
 
 
-const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldName_3,selectedRow, setSelectedRow}) => {
+const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldName_3,selectedRow, setSelectedRow, save_settings}) => {
 
     const tableFieldNames = {
         tableName: "Назва таблиці",
@@ -75,11 +75,11 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
 
     // const [tableFieldNames, setParamTable] = useState({
     //     tableName: {
-    //         fieldName: "Назва таблиці",
+    //         name: "Назва таблиці",
     //         data: ""
     //     },
     //     accessRight: {
-    //         fieldName: "Права доступу",
+    //         name: "Права доступу",
     //         data: ""
     //     }
     // })
@@ -135,6 +135,14 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                              [newValue()]: new Template()
                          }))}
                     >+ new column</div>
+                </div>
+
+
+                <div style={{background: "white", color: "black"}}
+                     onClick={() => {save_settings()}}
+
+                >
+                    Save settings
                 </div>
 
 

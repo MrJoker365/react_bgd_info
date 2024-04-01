@@ -21,11 +21,11 @@ const MainPage = () => {
         tableName: "Львівський універ",
         accessRight: "private",
         buttons: "",
-        searchInclude: "",
+        searchInclude: [""],
         listFormParam: {
-            v_1: "address",
-            v_2: "electric_box",
-            v_3: "place_of_overlap",
+            v_1: "col_1",
+            v_2: "col_2",
+            v_3: "col_3",
             v_4: "id"
         }
     })
@@ -45,12 +45,20 @@ const MainPage = () => {
 
             const some = {
                 id: i,
-                address: `м.Львів вул.Івана Франка ${100+i} `,
-                electric_box: "4 поверх",
-                place_of_overlap: "1 поверх",
-                persons_with_disabilities: 2,
-                number_of_people: 45
+                col_1: `м.Львів вул.Івана Франка ${100+i} `,
+                col_2: "4 поверх",
+                col_3: "1 поверх",
+                col_4: 2,
+                col_5: 45
             }
+            // const some = {
+            //     id: i,
+            //     address: `м.Львів вул.Івана Франка ${100+i} `,
+            //     electric_box: "4 поверх",
+            //     place_of_overlap: "1 поверх",
+            //     persons_with_disabilities: 2,
+            //     number_of_people: 45
+            // }
             info.push(some);
 
         }
@@ -92,7 +100,7 @@ const MainPage = () => {
 
     // const searchParam = new URLSearchParams(location.search);
     const[searchParam, setSearchParam] = useSearchParams();
-    const pageQuery = searchParam.get("pg") || null;
+    const tableQuery = searchParam.get("table") || null;
     const idQuery = parseInt(searchParam.get("id"), 10) || null;
 
 
@@ -176,6 +184,45 @@ const MainPage = () => {
     }
 
 
+    const [form_FieldName_3, setForm_FieldName_3] = useState({
+        id: {
+            name: "№",
+            inputType: "number",
+            category: "",
+            accessRight: false,
+        },
+        col_1: {
+            name: "Адреса",
+            inputType: "text",
+            category: "",
+            accessRight: false,
+        },
+        col_2: {
+            name: "Електричний щиток",
+            inputType: "text",
+            category: "",
+            accessRight: false,
+        },
+        col_3: {
+            name: "Місце перекриття",
+            inputType: "text",
+            category: "",
+            accessRight: false,
+        },
+        col_4: {
+            name: "Кількість людей з обмеженою рухливістю",
+            inputType: "number",
+            category: "",
+            accessRight: false,
+        },
+        col_5: {
+            name: "Приблизна кількість людей",
+            inputType: "number",
+            category: "",
+            accessRight: false,
+        }
+    })
+
 
     // const newData = {
     //     id: 1,
@@ -236,10 +283,14 @@ const MainPage = () => {
 
         <Routes>
             <Route element={<List_page_content tableParam={tableParam} informations={infoBuilds} setSearchParam={setSearchParam}/>}>
-                <Route path="read" element={ <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_2} visible={visible}/>}/>
-                <Route path="change" element={ <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={changeInfo} form={form_FieldName_2} visible={visible} />}/>
+                <Route path="read" element={ <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_3}
+                                                           data={infoBuild} visible={visible}/>}/>
+
+                <Route path="change" element={ <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={changeInfo}
+                                                             form={form_FieldName_3} data={infoBuild} setData={setInfoBuild}
+                                                             visible={visible} />}/>
             </Route>
-            <Route path="create" element={<MyCreateForm frame_mode={Frame_Mode.CREATE} callback={createInfo} form={form_FieldName_2}/>}/>
+            <Route path="create" element={<MyCreateForm frame_mode={Frame_Mode.CREATE} callback={createInfo} form={form_FieldName_3}/>}/>
         </Routes>
     );
 };

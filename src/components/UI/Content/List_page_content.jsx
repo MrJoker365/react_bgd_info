@@ -18,7 +18,7 @@ const List_page_content = ({children, tableParam, informations, setSearchParam, 
 
     console.log(filter.query)
 
-    const sortedAndSearchedList = useFilterHook(informations, ["id", "col_1"], filter.sort, filter.query)
+    const sortedAndSearchedList = useFilterHook(informations, tableParam.searchInclude, filter.sort, filter.query)
 
     // const sortedAndSearchedList = informations === null
     //     ? ""
