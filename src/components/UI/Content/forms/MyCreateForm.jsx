@@ -6,7 +6,7 @@ import MySelect from "../../select/MySelect";
 import {Frame_Mode, InputStyleConst} from "../../../../constant/Const";
 import MyFormAlert from "../../alert/MyFormAlert";
 
-const MyCreateForm = ({callback, form, data, setData, frame_mode, visible, selectedRow, setSelectedRow}) => {
+const MyCreateForm = ({callback, form, data, setData, frame_mode, visible, selectedRow, setSelectedRow, method}) => {
 
     // const [info, setInfo] = useState({
     //     "address": "Клепарівська 18",
@@ -18,6 +18,8 @@ const MyCreateForm = ({callback, form, data, setData, frame_mode, visible, selec
 
 
     const disabled = frame_mode === Frame_Mode.READ;
+
+    // if (frame_mode === Frame_Mode.CREATE && !data) setData({})
 
     const is_createTable_mode = frame_mode === Frame_Mode.CREATE_TABLE ? "true" : false /*іменно так і має бути....*/
 
@@ -87,7 +89,7 @@ const MyCreateForm = ({callback, form, data, setData, frame_mode, visible, selec
                             >
                                 <div>{form[key].name}</div>
                                 <MyInput
-                                    value={data && data[key]}
+                                    value={data ? data[key] : ""}
                                     // value={form[key].data}
                                     onChange={ (e) => setData({...data, [key]: e.target.value})}
                                     type={form[key].inputType}
@@ -116,12 +118,14 @@ const MyCreateForm = ({callback, form, data, setData, frame_mode, visible, selec
                 {frame_mode===Frame_Mode.CREATE &&
                     <div style={{display:"flex", gap:"30px"}}>
                         {/*<MyButton onClick={(e) => addNewPost(e)}>Створити</MyButton>*/}
-                        <MyButton >Скасувати</MyButton>
+                        <MyButton onClick={() => method.addInfo()}>Створити</MyButton>
+                        <MyButton onClick={() => method.clearInfo()}>Скасувати</MyButton>
                     </div>
                 }
                 {frame_mode===Frame_Mode.CHANGE &&
                     <div style={{display:"flex", gap:"30px"}}>
                         {/*<MyButton onClick={(e) => addNewPost(e)}>Зберегти зміни</MyButton>*/}
+                        <MyButton onClick={() => method.updateInfo()}>Зберегти зміни</MyButton>
                         <MyButton >Скасувати</MyButton>
                     </div>
                 }

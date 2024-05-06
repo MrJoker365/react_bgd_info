@@ -3,7 +3,7 @@ import st from "./MyButton.module.css"
 
 const MyButton = ({children, ...props}) => {
     return (
-            <button type="submit" {...props}>
+            <button type="button" {...props}>
                 {children}
             </button>
 

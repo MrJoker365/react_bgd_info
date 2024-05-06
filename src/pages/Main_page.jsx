@@ -13,23 +13,79 @@ import {Frame_Mode, InputStyleConst} from "../constant/Const";
 
 const MainPage = () => {
 
+    // const {id} = useParams();
+    // console.log(id)
+    const location = useLocation();
+
+    // const searchParam = new URLSearchParams(location.search);
+    const[searchParam, setSearchParam] = useSearchParams();
+    const tableQuery = searchParam.get("table")?.replaceAll("_", " ") || null;
+    const idQuery = parseInt(searchParam.get("id"), 10) || null;
+
+
+
+
+
+
+
+
+
 
 
 
 
     const [tableParam, setTableParam] = useState({ /*TODO тимчасво*/
-        tableName: "Львівський універ",
-        accessRight: "private",
-        buttons: "",
-        searchInclude: [""],
-        listFormParam: {
-            v_1: "col_1",
-            v_2: "col_2",
-            v_3: "col_3",
-            v_4: "id"
-        }
+        // tableName: "Львівський універ",
+        // accessRight: "private",
+        // buttons: "",
+        // searchInclude: [""],
+        // listFormParam: {
+        //     v_1: "col_1",
+        //     v_2: "col_2",
+        //     v_3: "col_3",
+        //     v_4: "id"
+        // }
     })
 
+
+    const [form_FieldName_3, setForm_FieldName_3] = useState({
+        // id: {
+        //     name: "№",
+        //     inputType: "number",
+        //     category: "",
+        //     accessRight: false,
+        // },
+        // col_1: {
+        //     name: "Адреса",
+        //     inputType: "text",
+        //     category: "",
+        //     accessRight: false,
+        // },
+        // col_2: {
+        //     name: "Електричний щиток",
+        //     inputType: "text",
+        //     category: "",
+        //     accessRight: false,
+        // },
+        // col_3: {
+        //     name: "Місце перекриття",
+        //     inputType: "text",
+        //     category: "",
+        //     accessRight: false,
+        // },
+        // col_4: {
+        //     name: "Кількість людей з обмеженою рухливістю",
+        //     inputType: "number",
+        //     category: "",
+        //     accessRight: false,
+        // },
+        // col_5: {
+        //     name: "Приблизна кількість людей",
+        //     inputType: "number",
+        //     category: "",
+        //     accessRight: false,
+        // }
+    })
 
 
 
@@ -51,7 +107,7 @@ const MainPage = () => {
                 col_4: 2,
                 col_5: 45
             }
-            // const some = {
+            // const my_header = {
             //     id: i,
             //     address: `м.Львів вул.Івана Франка ${100+i} `,
             //     electric_box: "4 поверх",
@@ -71,14 +127,46 @@ const MainPage = () => {
 
 
     const [fetching_AllInfoBuilds, isLoading, error] = useFetchingHook(async (limit, page) => {
-        const respons = await InfoBuildService.getAll()
-        setInfoBuilds(respons.data)
+        // const response_1 = await InfoBuildService.getAllTableParam(tableQuery)
+        const {data: response_1} = await InfoBuildService.getAllTableParam(tableQuery)
+        // const respons = await InfoBuildService.getAll()
+        const {data: response_2} = await InfoBuildService.getAllTableColumns(tableQuery)
+
+
+        // console.log("response_1 ")
+        // console.log(response_1)
+        //
+        // console.log("response_2 ")
+        // console.log(response_2)
+        //
+        // console.log("ПЕРЕВІРКА НА НАЯВНІСТЬ ID ")
+        // console.log(response_2[0].id)
+
+
+        setTableParam({
+            tableName: response_1.tableName,
+            accessRight: response_1.accessRight,
+            buttons: response_1.buttons,
+            searchInclude: response_1.searchInclude,
+            listFormParam: response_1.listFormParam
+        })
+
+        setForm_FieldName_3( {...response_1.columnsParam} )
+
+
+        const response_2_data = response_2.map(obg => {
+           return  ({...obg.json, id: obg.id})
+        })
+
+        console.log(response_2_data)
+        setInfoBuilds(response_2_data)
     })
 
 
     useEffect(() => {
         fetching_AllInfoBuilds();
-    }, []);
+        console.log("Виконалась загрузка даних")
+    }, [tableQuery]);
 
 
 
@@ -94,20 +182,20 @@ const MainPage = () => {
     const [infoBuild, setInfoBuild] = useState(null);
 
 
-    // const {id} = useParams();
-    // console.log(id)
-    const location = useLocation();
-
-    // const searchParam = new URLSearchParams(location.search);
-    const[searchParam, setSearchParam] = useSearchParams();
-    const tableQuery = searchParam.get("table") || null;
-    const idQuery = parseInt(searchParam.get("id"), 10) || null;
 
 
 
-    const [fetching_InfoBuild, isLoading_InfoBuild, error_InfoBuild] = useFetchingHook(async (id) => {
-        const respons = await InfoBuildService.getById(id)
-        setInfoBuild(respons.data)
+
+    const [fetching_InfoBuild, isLoading_InfoBuild, error_InfoBuild] = useFetchingHook(async (/*tableName,*/ id) => {
+        // const respons = await InfoBuildService.getById(id)
+        // setInfoBuild(respons.data)
+
+        // const {data: response} = await InfoBuildService.getTableColumn(tableName, id)
+        const {data: response} = await InfoBuildService.getTableColumn(id)
+        console.log("ОТРИМАННЯ ІНФОРМАЦІЇ InfoBuild")
+        console.log(response.json)
+        // setInfoBuild(response.json)
+        setInfoBuild({...response.json, id: response.id})
     })
 
     const [visible, setVisible] = useState(false)
@@ -120,8 +208,9 @@ const MainPage = () => {
 
         // if (location.pathname.includes('/main/buildInfo') && id !== "0") {
         if (idQuery) {
+            // fetching_InfoBuild(tableQuery, idQuery);
             fetching_InfoBuild(idQuery);
-            setInfoBuild(getInfos()[idQuery - 1]) /*ТИМЧАСОВО*/
+            // setInfoBuild(getInfos()[idQuery - 1]) /*ТИМЧАСОВО*/
         }else {
             setInfoBuild(null) /*ТИМЧАСОВО*/
         }
@@ -184,44 +273,7 @@ const MainPage = () => {
     }
 
 
-    const [form_FieldName_3, setForm_FieldName_3] = useState({
-        id: {
-            name: "№",
-            inputType: "number",
-            category: "",
-            accessRight: false,
-        },
-        col_1: {
-            name: "Адреса",
-            inputType: "text",
-            category: "",
-            accessRight: false,
-        },
-        col_2: {
-            name: "Електричний щиток",
-            inputType: "text",
-            category: "",
-            accessRight: false,
-        },
-        col_3: {
-            name: "Місце перекриття",
-            inputType: "text",
-            category: "",
-            accessRight: false,
-        },
-        col_4: {
-            name: "Кількість людей з обмеженою рухливістю",
-            inputType: "number",
-            category: "",
-            accessRight: false,
-        },
-        col_5: {
-            name: "Приблизна кількість людей",
-            inputType: "number",
-            category: "",
-            accessRight: false,
-        }
-    })
+
 
 
     // const newData = {
@@ -234,17 +286,43 @@ const MainPage = () => {
 
     // Добавлення інформації
 
-    const [addInfo] = useFetchingHook(async (data) => {
-        const response = InfoBuildService.add(data)
+    // const [addInfo] = useFetchingHook(async (data) => {
+    //     const response = InfoBuildService.add(data)
+    //     console.log(response) // потім треба буде обробляти на наявність такох інфи або іншу некоректність
+    // })
+
+
+
+    const [fetching_addInfo, isLoading__addInfo, error_addInfo] = useFetchingHook(async (tableName, data) => {
+        const response = InfoBuildService.createTableColumn(tableName, data)
         console.log(response) // потім треба буде обробляти на наявність такох інфи або іншу некоректність
     })
 
-    const createInfo = (newData) => {
-        addInfo(newData)
+    const [fetching_updateInfo, isLoading_updateInfo, error_updateInfo] = useFetchingHook(async (id, data) => {
+        const response = InfoBuildService.updateTableColumn(id, data)
+        console.log(response) // потім треба буде обробляти на наявність такох інфи або іншу некоректність
+    })
+
+    // const addInfo = (newData) => {
+    //     addInfo(newData)
+    // }
+
+    const addInfo = () => {
+        fetching_addInfo(tableQuery, {json: infoBuild})
+        console.log({json: infoBuild});
     }
 
-    const changeInfo = (newData) => {
+    const clearInfo = () => {
+        setInfoBuild(null)
+    }
+
+    const updateInfo = () => {
         //TODO функціонал для редагування / видалення інфи
+
+        fetching_updateInfo(idQuery, {json: infoBuild})
+        console.log({json: infoBuild});
+
+
     }
 
 
@@ -262,13 +340,13 @@ const MainPage = () => {
     //                         <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_2} visible={visible}/>
     //                     }
     //                     {page === Frame_Mode.CHANGE &&
-    //                         <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={changeInfo} form={form_FieldName_2} visible={visible} />
+    //                         <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={updateInfo} form={form_FieldName_2} visible={visible} />
     //                     }
     //
     //                 </List_page_content>
     //             )
     //         case Frame_Mode.CREATE:
-    //             return <MyCreateForm frame_mode={Frame_Mode.CREATE} callback={createInfo} form={form_FieldName_2}/>;
+    //             return <MyCreateForm frame_mode={Frame_Mode.CREATE} callback={addInfo} form={form_FieldName_2}/>;
     //
     //         // default:
     //         //     return <List_page_content informations={infoBuilds}/>;
@@ -276,21 +354,28 @@ const MainPage = () => {
     // }
 
 
+    console.log(tableQuery === tableParam.tableName, "303")
+    console.log(tableParam.tableName)
+
 
     return (
 
         // renderContent()
 
         <Routes>
-            <Route element={<List_page_content tableParam={tableParam} informations={infoBuilds} setSearchParam={setSearchParam}/>}>
-                <Route path="read" element={ <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_3}
-                                                           data={infoBuild} visible={visible}/>}/>
+            {tableQuery === tableParam.tableName &&
+                <Route element={<List_page_content tableParam={tableParam} informations={infoBuilds} setSearchParam={setSearchParam}/>}>
+                    <Route path="read" element={ <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_3}
+                                                               data={infoBuild} visible={visible} />}/>
 
-                <Route path="change" element={ <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={changeInfo}
-                                                             form={form_FieldName_3} data={infoBuild} setData={setInfoBuild}
-                                                             visible={visible} />}/>
-            </Route>
-            <Route path="create" element={<MyCreateForm frame_mode={Frame_Mode.CREATE} callback={createInfo} form={form_FieldName_3}/>}/>
+                    <Route path="change" element={ <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={updateInfo}
+                                                                 form={form_FieldName_3} data={infoBuild} setData={setInfoBuild}
+                                                                 visible={visible} method={{updateInfo}} />}/>
+                </Route>
+            }
+                <Route path="create" element={<MyCreateForm frame_mode={Frame_Mode.CREATE} data={infoBuild} setData={setInfoBuild}
+                                                            callback={addInfo} form={form_FieldName_3} method={{addInfo, clearInfo}}/>}/>
+
         </Routes>
     );
 };

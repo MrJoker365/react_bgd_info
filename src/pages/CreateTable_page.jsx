@@ -32,7 +32,7 @@ const CreateTablePage = () => {
     //     for (let i = 1; i < 30; i++) {
     //
     //
-    //         const some = {
+    //         const my_header = {
     //             id: i,
     //             address: `м.Львів вул.Івана Франка ${100+i} `,
     //             electric_box: "4 поверх",
@@ -40,7 +40,7 @@ const CreateTablePage = () => {
     //             persons_with_disabilities: 2,
     //             number_of_people: 45
     //         }
-    //         info.push(some);
+    //         info.push(my_header);
     //
     //     }
     //
