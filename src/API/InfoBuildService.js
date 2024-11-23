@@ -6,10 +6,13 @@ axios.defaults.headers.post["Content-Type"] = 'application/json'
 export const getAuthToken = () => {
     return window.localStorage.getItem("auth_token")
 }
-export const setAuthToken = (token =
-                                 'eyJhbGciOiJIUzI1NiJ9.' +
-                                 'eyJzdWIiOiJ0c3RzcjEyMzQ1QGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiZXhwIjoxNzE1MTcxNDY2LCJpYXQiOjE3MTQ5OTE0NjZ9.' +
-                                 'SvyBrk6JwuaYKhtH5kEvUwS_mnepMME29IkL7ke9gek') => {
+// export const setAuthToken = (token =
+//                                  'eyJhbGciOiJIUzI1NiJ9.' +
+//                                  'eyJzdWIiOiJ0c3RzcjEyMzQ1QGdtYWlsLmNvbSIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwiZXhwIjoxNzE1MTcxNDY2LCJpYXQiOjE3MTQ5OTE0NjZ9.' +
+//                                  'SvyBrk6JwuaYKhtH5kEvUwS_mnepMME29IkL7ke9gek') => {
+//     window.localStorage.setItem("auth_token", token)
+// }
+export const setAuthToken = (token) => {
     window.localStorage.setItem("auth_token", token)
 }
 
@@ -65,7 +68,9 @@ export default class InfoBuildService {
             params: {
                 id: id
             },
-            headers: this.my_header
+            headers: {
+                Authorization: 'Bearer ' + getAuthToken()
+            }
         })
 
     }
@@ -75,7 +80,9 @@ export default class InfoBuildService {
             params: {
                 tableName: tableName
             },
-            headers: this.my_header
+            headers: {
+                Authorization: 'Bearer ' + getAuthToken()
+            }
         })
     }
 
@@ -84,7 +91,9 @@ export default class InfoBuildService {
             params: {
                 id: id
             },
-            headers: this.my_header
+            headers: {
+                Authorization: 'Bearer ' + getAuthToken()
+            }
         })
     }
 
@@ -98,18 +107,22 @@ export default class InfoBuildService {
 
     static async createTable (data){
         return await axios.post(this.URL + "createTable", data, {
-            headers: this.my_header
+            headers: {
+                Authorization: 'Bearer ' + getAuthToken()
+            }
         })
     }
 
 
 
-    static async getAllTableName(id) {
-        setAuthToken();
+    static async getAllTableName() {  /*ПОЧАТОК КОДУ ....................................*/
+        // const {data: response} = await this.login();
+        // // console.log(response.token + " OOKOKOKOKOK")
+        // setAuthToken(response.token);
         return await axios.get("getTableNameBySys_manager_id" , {
-            params: {
-                id: id
-            },
+            // params: {
+            //     id: id
+            // },
             // headers: this.my_header
 
             headers: {
@@ -131,7 +144,9 @@ export default class InfoBuildService {
             params: {
                 tableName: tableName
             },
-            headers: this.my_header
+            headers: {
+                Authorization: 'Bearer ' + getAuthToken()
+            }
         })
 
         // return await axios.get("http://localhost:8081/api/getTableNameBySys_manager_id?id=1")
@@ -146,12 +161,14 @@ export default class InfoBuildService {
 
 
 
-    static async getAllUsers(id) {
+    static async getAllUsers() {
         return await axios.get(this.URL + "getAllUsers" , {
-            params: {
-                id: id
-            },
-            headers: this.my_header
+            // params: {
+            //     id: id
+            // },
+            headers: {
+                Authorization: 'Bearer ' + getAuthToken()
+            }
         })
 
     }
@@ -161,20 +178,31 @@ export default class InfoBuildService {
             params: {
                 u_id: u_id
             },
-            headers: this.my_header
+            headers: {
+                Authorization: 'Bearer ' + getAuthToken()
+            }
         })
 
     }
 
 
 
-    static async login(){
-        const data = {
-            "email": "tstsr12345@gmail.com",
-            "password": "password"
-        }
-        return await axios.post(this.URL + "auth/login", data)
+    static async login(data = {
+        "email": "tstsr12345@gmail.com",
+        "password": "password"
+    }){
+
+        return await axios.post(this.URL + "auth/auth", data)
     }
+
+
+    // static async email(){
+    //     const data = {
+    //         "email": "tstsr12345@gmail.com",
+    //         "password": "password"
+    //     }
+    //     return await axios.post(this.URL + "auth/email", data)
+    // }
 
 
 

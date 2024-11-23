@@ -9,27 +9,12 @@ import MyCreateForm from "../components/UI/Content/forms/MyCreateForm";
 // import Frame_Mode from "../constant/Const";
 
 import {Frame_Mode, InputStyleConst} from "../constant/Const";
-
-
 const MainPage = () => {
-
-
     const location = useLocation();
-
     // const searchParam = new URLSearchParams(location.search);
     const[searchParam, setSearchParam] = useSearchParams();
     const tableQuery = searchParam.get("table")?.replaceAll("_", " ") || null;
     const idQuery = parseInt(searchParam.get("id"), 10) || null;
-
-
-
-
-
-
-
-
-
-
 
     const [tableParam, setTableParam] = useState({ /*TODO тимчасво*/
         tableName: "Користувачі системи",
@@ -43,7 +28,6 @@ const MainPage = () => {
             v_4: "role"
         }
     })
-
 
     const [form_FieldName_3, setForm_FieldName_3] = useState({
         id: {
@@ -84,20 +68,10 @@ const MainPage = () => {
         // }
     })
 
-
-
-
-
-
-
     const [allUsers, setAllUsers] = useState([]);
 
-
-
     const [fetching_allUsers, isLoading, error] = useFetchingHook(async (limit, page) => {
-
         const {data: response} = await InfoBuildService.getAllUsers();
-
 
         // console.log("response_1 ")
         // console.log(response_1)
@@ -107,9 +81,6 @@ const MainPage = () => {
         //
         // console.log("ПЕРЕВІРКА НА НАЯВНІСТЬ ID ")
         // console.log(response_2[0].id)
-
-
-
 
         const response_data = response.map(obg => {
             return  ({
@@ -131,21 +102,8 @@ const MainPage = () => {
         console.log("Виконалась загрузка даних")
     }, [location]); /*TODO ще треба придумати...*/
 
-
-
-
-
-
-
-
-
     // const [infoBuild, setInfoBuild] = useState(getInfos()[5]);
     const [selectedUser, setSelectedUser] = useState(null);
-
-
-
-
-
 
     const [fetching_selectedUser, isLoading_selectedUser, error_selectedUser] = useFetchingHook(async (/*tableName,*/ u_id) => {
         // const respons = await InfoBuildService.getById(id)
@@ -197,16 +155,12 @@ const MainPage = () => {
         }
     }, [selectedUser]);
 
-
-
     // Добавлення інформації
 
     // const [addInfo] = useFetchingHook(async (data) => {
     //     const response = InfoBuildService.add(data)
     //     console.log(response) // потім треба буде обробляти на наявність такох інфи або іншу некоректність
     // })
-
-
 
     const [fetching_addInfo, isLoading__addInfo, error_addInfo] = useFetchingHook(async (tableName, data) => {
         const response = InfoBuildService.createTableColumn(tableName, data)
@@ -236,30 +190,19 @@ const MainPage = () => {
 
         // fetching_updateInfo(idQuery, {json: selectedUser})
         console.log({json: selectedUser});
-
-
     }
-
-
-
     return (
-
         // renderContent()
-
         <Routes>
             <Route element={<List_page_content tableParam={tableParam} informations={allUsers} setSearchParam={setSearchParam}/>}>
-
                 <Route path="read" element={ <MyCreateForm frame_mode={Frame_Mode.READ} form={form_FieldName_3}
                                                            data={selectedUser} visible={visible} />}/>
-
                 <Route path="change" element={ <MyCreateForm frame_mode={Frame_Mode.CHANGE} callback={updateInfo}
                                                              form={form_FieldName_3} data={selectedUser} setData={setSelectedUser}
                                                              visible={visible} method={{updateInfo}} />}/>
             </Route>
-
             <Route path="create" element={<MyCreateForm frame_mode={Frame_Mode.CREATE} data={selectedUser} setData={setSelectedUser}
                                                         callback={addInfo} form={form_FieldName_3} method={{addInfo, clearInfo}}/>}/>
-
         </Routes>
     );
 };

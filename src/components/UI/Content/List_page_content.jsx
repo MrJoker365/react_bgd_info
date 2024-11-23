@@ -10,10 +10,7 @@ import {useFilterHook} from "../../../hooks/useFilterHook";
 import MyCreateForm from "./forms/MyCreateForm";
 
 const List_page_content = ({children, tableParam, informations, setSearchParam, isCreatingTable}) => {
-
-
     const [visible, setVisible] = useState(false); // тимчасово true
-
     const [filter, setFilter] = useState({sort: "", query: ""}) // покищо тільки query для MyInput
 
     console.log(filter.query)
@@ -24,22 +21,15 @@ const List_page_content = ({children, tableParam, informations, setSearchParam, 
     //     ? ""
     //     : useFilterHook(informations, "address", filter.sort, filter.query)
 
-
-
     // useEffect(() => {
     //     if (form.infoBuild?.id){
     //         setVisible(true)
     //     }
     // }, [form]);
 
-
     return (
-
-
         <div className={st.Rectangle}>
-
             <div className={st.Frame1}>
-
                 <ListFilter
                     filter={filter}
                     setFilter={setFilter}
@@ -57,16 +47,12 @@ const List_page_content = ({children, tableParam, informations, setSearchParam, 
 
                 }
 
-
                 <MyList tableParam={tableParam} informations={sortedAndSearchedList}
                         setVisible={setVisible} setSearchParam={setSearchParam}
                         isCreatingTable={isCreatingTable}
-
                 />  {/*покищо працює, потім вдосконалю...*/}
 
-
             </div>
-
 
             {children}
 
@@ -75,9 +61,7 @@ const List_page_content = ({children, tableParam, informations, setSearchParam, 
             {/*<div className={st.Frame2}>*/}
 
             {/*</div>*/}
-
         </div>
-
     );
 };
 

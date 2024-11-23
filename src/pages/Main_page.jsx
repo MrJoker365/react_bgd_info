@@ -316,10 +316,10 @@ const MainPage = () => {
         setInfoBuild(null)
     }
 
-    const updateInfo = () => {
+    const updateInfo = async () => {
         //TODO функціонал для редагування / видалення інфи
 
-        fetching_updateInfo(idQuery, {json: infoBuild})
+        await fetching_updateInfo(idQuery, {json: infoBuild})
         console.log({json: infoBuild});
 
 

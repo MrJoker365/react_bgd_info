@@ -10,13 +10,9 @@ const MyListForm = ({visible, form}) => {
     }
 
     return (
-
         <div className={rootClasses.join(" ")}>
-
             <div className={st.Alert}>read only</div>
-
             <div className={st.Frame}>
-
                 {
                     Object.keys(form.form_FieldName).map(key => /*Перераховую по ключовому значенню об'єкта*/
                         <div className={st.Row} key={key}>
@@ -51,9 +47,7 @@ const MyListForm = ({visible, form}) => {
             {/*<div className={st.Frame2}>*/}
             {/*    Hello*/}
             {/*</div>*/}
-
         </div>
-
 
     );
 };

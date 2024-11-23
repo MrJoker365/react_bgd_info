@@ -4,8 +4,6 @@ import MyInput from "../../../input/MyInput";
 import {InputStyleConst} from "../../../../../constant/Const";
 import MySelect from "../../../select/MySelect";
 
-
-
 class Template {
     constructor(name = "", inputType = "",category = "", accessRights = "") {
         this.name = name;
@@ -14,7 +12,6 @@ class Template {
         this.accessRights = accessRights;
     }
 }
-
 
 const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldName_3,selectedRow, setSelectedRow, save_settings}) => {
 
@@ -25,7 +22,6 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
         listFormParam: "Пріорітет відображень у списку"
     }
 
-
     console.log(Object.keys(tableParam.listFormParam).find(key =>tableParam.listFormParam[key] === `${selectedRow}` ))
 
     // const [tableParam, setTableParam] = useState({
@@ -34,7 +30,6 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
     //     accessRight: "",
     //     buttons: ""
     // })
-
 
     const columnFieldNames = {
         name: "Назва поля",
@@ -54,7 +49,6 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
     //     priority: 0 /*1, 2, 3, 4*/
     // })
 
-
     const columnsParam = form_FieldName_3[selectedRow]
 
     const setColumnsParam = (fieldName, value) => {
@@ -72,7 +66,6 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
         return res ? res : "null"
     }
 
-
     // const [tableFieldNames, setParamTable] = useState({
     //     tableName: {
     //         name: "Назва таблиці",
@@ -85,13 +78,9 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
     // })
     // const [paramColumn, setParamColumn] = useState({})
 
-
-
     const [table_form_visible, setTable_form_visible] = useState(true)
 
-
     const newValue = () => `col_${Object.keys(form_FieldName_3).length}`
-
 
     return (
         <div className={st.Rectangle}>
@@ -120,7 +109,6 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
 
                     <div style={{display: "flex"}}>
                         {Object.keys(form_FieldName_3).map(key =>
-
                             <div style={{color: "purple", padding: "0 5px"}}
                                  onClick={() =>
                                      setSelectedRow(key)
@@ -140,25 +128,17 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
 
                 <div style={{background: "white", color: "black"}}
                      onClick={() => {save_settings()}}
-
                 >
                     Save settings
                 </div>
-
-
 
                 {/*Hello*/}
             </div>
 
             <div className={st.Frame_2}>
-
-
-
                 <form className={st.TableForm} aria-current={table_form_visible === false}>
-
                     <div className={st.Row}>
                         <div>{tableFieldNames.tableName}</div>
-
                         <MyInput
                             value={tableParam.tableName}
                             onChange={ e => setTableParam({...tableParam, tableName: e.target.value} )}
@@ -166,27 +146,19 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                         />
                     </div>
 
-
                     <div className={st.Row}>
                         <div>{tableFieldNames.accessRight}</div>
-
                         <MySelect
                             value={tableParam.accessRight}
                             onChange={(e) => setTableParam({...tableParam, accessRight: e})}
-
-
                             defaultValue="Виберіть права доступу..."
-
-
                             options={[
                                 {value: "private", name: "private"},
                                 {value: "public", name: "public"},
                                 {value: "protected", name: "protected"},
                                 // {value: -1, name: "показати все"},
                             ]}
-
                         />
-
                     </div>
 
                     <div className={st.Row}>
@@ -195,26 +167,15 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                         <MySelect
                             value={tableParam.accessRight}
                             onChange={(e) => setTableParam({...tableParam, accessRight: e})}
-
-
                             defaultValue="Виберіть права доступу..."
-
-
                             options={[
                                 {value: "private", name: "private"},
                                 {value: "public", name: "public"},
                                 {value: "protected", name: "protected"},
                                 // {value: -1, name: "показати все"},
                             ]}
-
                         />
-
                     </div>
-
-
-
-
-
 
                     {/*{*/}
                     {/*    Object.keys(tableFieldNames).map((key) =>*/}
@@ -234,14 +195,9 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                     {/*}*/}
                 </form>
 
-
-
-
                 <form style={{gap: "15px"}}>
-
                     <div className={st.Row}>
                         <div>{columnFieldNames.name}</div>
-
                         <MyInput
                             value={columnsParam.name}
                             onChange={ e => setColumnsParam("name", e.target.value)}
@@ -249,90 +205,54 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                         />
                     </div>
 
-
                     <div className={st.Row}>
                         <div>{columnFieldNames.inputType}</div>
-
                         <MySelect
                             value={columnsParam.inputType}
                             // onChange={(e) => setColumnsParam({...columnsParam, inputType: e})}
                             onChange={(e) => setColumnsParam("inputType", e)} /*TODO Продовжувати звідси...*/
-
-
                             defaultValue="Виберіть тип поля..."
-
-
                             options={[
-                                {value: "string", name: "строка"},
+                                {value: "string", name: "текст"},
                                 {value: "number", name: "число"},
                                 {value: "password", name: "пароль"},
                                 {value: "email", name: "емеіл"},
                                 {value: "url", name: "URL"},
                                 {value: "json", name: "JSON"},
-
                                 // {value: -1, name: "показати все"},
                             ]}
-
                         />
-
                     </div>
-
-
 
                     <div className={st.Row}>
                         <div>{columnFieldNames.category}</div>
-
                         <MySelect
                             value={columnsParam.category}
                             // onChange={(e) => setColumnsParam({...columnsParam, inputType: e})}
                             onChange={(e) => setColumnsParam("category", e)} /*TODO Продовжувати звідси...*/
-
-
                             defaultValue="Категорія..."
-
-
                             options={[
                                 {value: "general", name: "Загальні"},
                                 {value: "all", name: "Всі"},
-
                                 // {value: -1, name: "показати все"},
                             ]}
-
                         />
-
                     </div>
-
-
-
 
                     <div className={st.Row}>
                         <div>{columnFieldNames.accessRight}</div>
-
                         <MySelect
                             value={columnsParam.accessRight}
                             // onChange={(e) => setColumnsParam({...columnsParam, inputType: e})}
                             onChange={(e) => setColumnsParam("accessRight", e)} /*TODO Продовжувати звідси...*/
-
-
                             defaultValue="Права доступу..."
-
-
                             options={[
                                 {value: true, name: "Public"},
                                 {value: false, name: "Private"},
-
                                 // {value: -1, name: "показати все"},
                             ]}
-
                         />
-
                     </div>
-
-
-
-
-
-
 
                     {/*<div className={st.Row}>*/}
                     {/*    <div>{columnFieldNames.includeInSearch}</div>*/}
@@ -353,7 +273,6 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                         <div>{columnFieldNames.includeInSearch}</div>
                         {/*<div>{columnsParam.includeInSearch}</div>*/}
 
-
                         <MyInput
                             // value={columnsParam.includeInSearch}
                             checked={tableParam.searchInclude.some(obg => obg === `${selectedRow}`)}
@@ -366,8 +285,6 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                             type="checkbox"
                         />
                     </div>
-
-
 
                     {/*<div className={st.Row}>*/}
                     {/*    <div>{columnFieldNames.priority}</div>*/}
@@ -394,12 +311,8 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
 
                     {/*</div>*/}
 
-
-
-
                     <div className={st.Row}>
                         <div>{tableFieldNames.listFormParam}</div>
-
                         <MySelect
                             // value={tableParam.listFormParam}
                             // value={Object.keys(tableParam.listFormParam).find(key =>tableParam.listFormParam[key] === `${selectedRow}` )}
@@ -410,10 +323,7 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                                 : setTableParam((prevForm) => ({...prevForm, listFormParam: {...prevForm.listFormParam, [e]: `${selectedRow}` } }))
                             }
 
-
                             defaultValue="Виберіть права доступу..."
-
-
                                     options={[
                                         {value: "v_1", name: "1"},
                                         {value: "v_2", name: "2"},
@@ -423,18 +333,9 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
 
                                         // {value: -1, name: "показати все"},
                                     ]}
-
                         />
-
                     </div>
-
-
-
-
-
                 </form>
-
-
             </div>
         </div>
     );
