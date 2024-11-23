@@ -63,7 +63,6 @@ export default class InfoBuildService {
     // }
 
     static async getTableColumn(id) {
-
         return await axios.get(this.URL + "getTableColumn" , {
             params: {
                 id: id
@@ -72,7 +71,6 @@ export default class InfoBuildService {
                 Authorization: 'Bearer ' + getAuthToken()
             }
         })
-
     }
 
     static async createTableColumn (tableName, data){
@@ -113,8 +111,6 @@ export default class InfoBuildService {
         })
     }
 
-
-
     static async getAllTableName() {  /*ПОЧАТОК КОДУ ....................................*/
         // const {data: response} = await this.login();
         // // console.log(response.token + " OOKOKOKOKOK")
@@ -138,7 +134,6 @@ export default class InfoBuildService {
         // return await axios.get("http://localhost:8081/api/getTableNameBySys_manager_id?id=1")
     }
 
-
     static async getAllTableParam(tableName) {
         return await axios.get(this.URL + "getTableParam" , {
             params: {
@@ -152,14 +147,7 @@ export default class InfoBuildService {
         // return await axios.get("http://localhost:8081/api/getTableNameBySys_manager_id?id=1")
     }
 
-
-
-
-
-
     /*FOR SYSTEM_USERS...*/
-
-
 
     static async getAllUsers() {
         return await axios.get(this.URL + "getAllUsers" , {
@@ -170,7 +158,6 @@ export default class InfoBuildService {
                 Authorization: 'Bearer ' + getAuthToken()
             }
         })
-
     }
 
     static async getUser(u_id) {
@@ -182,10 +169,7 @@ export default class InfoBuildService {
                 Authorization: 'Bearer ' + getAuthToken()
             }
         })
-
     }
-
-
 
     static async login(data = {
         "email": "tstsr12345@gmail.com",
@@ -195,6 +179,9 @@ export default class InfoBuildService {
         return await axios.post(this.URL + "auth/auth", data)
     }
 
+    static async register(data){
+        return await axios.post(this.URL + "auth/register", data)
+    }
 
     // static async email(){
     //     const data = {
@@ -203,8 +190,4 @@ export default class InfoBuildService {
     //     }
     //     return await axios.post(this.URL + "auth/email", data)
     // }
-
-
-
-
 }

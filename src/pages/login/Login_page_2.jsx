@@ -21,12 +21,37 @@ function LoginRegister() {
         setData({ ...data, name: "", confirm_password: "" });
     };
 
+    const clearForRegister = () => {
+        setData({
+            name: "",
+            email: "",
+            password: "",
+            confirm_password: "",
+        });
+    };
+
     const [fetching_Login, isLoading_Login, error_Login] = useFetchingHook(async () => {
         const { data: response } = await InfoBuildService.login(data);
         console.log("Received InfoBuild data");
         console.log("TOKEN -----  " + response.token);
         window.localStorage.setItem("auth_token", response.token);
         setIsAuth(true);
+    });
+
+    const [fetching_Register, isLoading_Register, error_Register] = useFetchingHook(async () => {
+        if (data.password !== data.confirm_password) {
+            throw new Error("Passwords do not match");
+        }
+
+        const { data: response } = await InfoBuildService.register({
+            name: data.name,
+            email: data.email,
+            password: data.password,
+        });
+
+        console.log("Registration successful:", response);
+        alert("Registration successful! You can now log in.");
+        setIsLogin(true);
     });
 
     return (
@@ -42,12 +67,13 @@ function LoginRegister() {
                 </div>
 
                 <form onSubmit={e => {
-                    e.preventDefault(); // Prevent default form submission
+                    e.preventDefault();
                     if (isLogin) {
                         clearForLogin();
-                        fetching_Login(); // Execute the fetching logic on login
+                        fetching_Login();
                     } else {
-                        // Implement register logic here
+                        clearForRegister();
+                        fetching_Register();
                     }
                 }}>
                     {!isLogin && (
