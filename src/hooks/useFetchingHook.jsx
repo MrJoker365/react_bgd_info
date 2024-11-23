@@ -4,7 +4,6 @@ import {AuthContext} from "../context/context";
 export const useFetchingHook = (callback) => {
 
     const {isAuth, setIsAuth} = useContext(AuthContext);
-
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("")
 

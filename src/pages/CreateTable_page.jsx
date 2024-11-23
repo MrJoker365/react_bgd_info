@@ -61,12 +61,9 @@ const CreateTablePage = () => {
        item.id === item.id && newData
     )
         setInfoBuilds(updateData)
-
     }
 
     const[searchParam, setSearchParam] = useSearchParams(); /*Покищо не знаю чи потрібно*/
-
-
 
     // const form_FieldName_2 = {
     //     id: {
@@ -101,7 +98,6 @@ const CreateTablePage = () => {
     //     }
     // }
 
-
     const form_FieldName_2 = {
         id: {
             name: "№",
@@ -135,10 +131,6 @@ const CreateTablePage = () => {
         }
     }
 
-
-
-
-
     const [form_FieldName_3, setForm_FieldName_3] = useState({
         id: {
             name: "№",
@@ -160,8 +152,6 @@ const CreateTablePage = () => {
         }
     })
 
-
-
     const [selectedRow, setSelectedRow] = useState("id");
 
     const [createTable_serv] = useFetchingHook(async (data) => {
@@ -173,7 +163,6 @@ const CreateTablePage = () => {
         createTable_serv({...tableParam, columnsParam: form_FieldName_3})
         console.log({...tableParam, columnsParam: form_FieldName_3})
         // return ({...tableParam, columnsParam: form_FieldName_3})
-
     }
 
     const render = () =>
@@ -196,11 +185,6 @@ const CreateTablePage = () => {
 
         </div>
 
-
-
-
-
-
     return (
         // <Routes>
         //     <Route element={<List_page_content informations={infoBuilds} setSearchParam={setSearchParam}/>}>
@@ -213,9 +197,6 @@ const CreateTablePage = () => {
 };
 
 export default CreateTablePage;
-
-
-
 
 const example = {
     "tableName": "Львівський універ",

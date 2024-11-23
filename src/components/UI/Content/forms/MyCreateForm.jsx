@@ -16,7 +16,6 @@ const MyCreateForm = ({callback, form, data, setData, frame_mode, visible, selec
     //     "number_of_people": 70
     // })
 
-
     const disabled = frame_mode === Frame_Mode.READ;
 
     // if (frame_mode === Frame_Mode.CREATE && !data) setData({})
@@ -33,8 +32,6 @@ const MyCreateForm = ({callback, form, data, setData, frame_mode, visible, selec
     }
 
     // const [info, setInfo] = useState({})
-
-
 
     // useEffect(() => {
     //     const updateInfo = {}
@@ -131,11 +128,7 @@ const MyCreateForm = ({callback, form, data, setData, frame_mode, visible, selec
                 }
 
             </form>
-
         </div>
-
-
-
     );
 };
 

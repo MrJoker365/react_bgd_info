@@ -10,7 +10,6 @@ import MyCreateForm from "../components/UI/Content/forms/MyCreateForm";
 
 import {Frame_Mode, InputStyleConst} from "../constant/Const";
 
-
 const MainPage = () => {
 
     // const {id} = useParams();
@@ -21,18 +20,6 @@ const MainPage = () => {
     const[searchParam, setSearchParam] = useSearchParams();
     const tableQuery = searchParam.get("table")?.replaceAll("_", " ") || null;
     const idQuery = parseInt(searchParam.get("id"), 10) || null;
-
-
-
-
-
-
-
-
-
-
-
-
 
     const [tableParam, setTableParam] = useState({ /*TODO тимчасво*/
         // tableName: "Львівський універ",
@@ -46,7 +33,6 @@ const MainPage = () => {
         //     v_4: "id"
         // }
     })
-
 
     const [form_FieldName_3, setForm_FieldName_3] = useState({
         // id: {
@@ -87,18 +73,11 @@ const MainPage = () => {
         // }
     })
 
-
-
-
-
     // Весь список
     let getInfos = () => {
-
         let info = [];
 
         for (let i = 1; i < 20; i++) {
-
-
             const some = {
                 id: i,
                 col_1: `м.Львів вул.Івана Франка ${100+i} `,
@@ -116,15 +95,12 @@ const MainPage = () => {
             //     number_of_people: 45
             // }
             info.push(some);
-
         }
 
         return info;
     }
 
     const [infoBuilds, setInfoBuilds] = useState(getInfos());
-
-
 
     const [fetching_AllInfoBuilds, isLoading, error] = useFetchingHook(async (limit, page) => {
         // const response_1 = await InfoBuildService.getAllTableParam(tableQuery)
@@ -142,7 +118,6 @@ const MainPage = () => {
         // console.log("ПЕРЕВІРКА НА НАЯВНІСТЬ ID ")
         // console.log(response_2[0].id)
 
-
         setTableParam({
             tableName: response_1.tableName,
             accessRight: response_1.accessRight,
@@ -152,7 +127,6 @@ const MainPage = () => {
         })
 
         setForm_FieldName_3( {...response_1.columnsParam} )
-
 
         const response_2_data = response_2.map(obg => {
            return  ({...obg.json, id: obg.id})
@@ -168,24 +142,11 @@ const MainPage = () => {
         console.log("Виконалась загрузка даних")
     }, [tableQuery]);
 
-
-
-
-
-
-
     // Пост за id
-
     console.log("Main_page.jsx") // тимчасово
 
     // const [infoBuild, setInfoBuild] = useState(getInfos()[5]);
     const [infoBuild, setInfoBuild] = useState(null);
-
-
-
-
-
-
     const [fetching_InfoBuild, isLoading_InfoBuild, error_InfoBuild] = useFetchingHook(async (/*tableName,*/ id) => {
         // const respons = await InfoBuildService.getById(id)
         // setInfoBuild(respons.data)
@@ -203,15 +164,13 @@ const MainPage = () => {
     // if(id) vs = true
     if(idQuery) vs = true
 
-
     useEffect(() => {
-
         // if (location.pathname.includes('/main/buildInfo') && id !== "0") {
         if (idQuery) {
             // fetching_InfoBuild(tableQuery, idQuery);
             fetching_InfoBuild(idQuery);
             // setInfoBuild(getInfos()[idQuery - 1]) /*ТИМЧАСОВО*/
-        }else {
+        } else {
             setInfoBuild(null) /*ТИМЧАСОВО*/
         }
 
@@ -272,15 +231,10 @@ const MainPage = () => {
         }
     }
 
-
-
-
-
     // const newData = {
     //     id: 1,
     //     address: "Київ"
     // }
-
 
     console.log("hello _ 165")
 
@@ -290,8 +244,6 @@ const MainPage = () => {
     //     const response = InfoBuildService.add(data)
     //     console.log(response) // потім треба буде обробляти на наявність такох інфи або іншу некоректність
     // })
-
-
 
     const [fetching_addInfo, isLoading__addInfo, error_addInfo] = useFetchingHook(async (tableName, data) => {
         const response = InfoBuildService.createTableColumn(tableName, data)
@@ -321,10 +273,7 @@ const MainPage = () => {
 
         await fetching_updateInfo(idQuery, {json: infoBuild})
         console.log({json: infoBuild});
-
-
     }
-
 
     // let page = Frame_Mode.READ
     //
@@ -353,15 +302,11 @@ const MainPage = () => {
     //     }
     // }
 
-
     console.log(tableQuery === tableParam.tableName, "303")
     console.log(tableParam.tableName)
 
-
     return (
-
         // renderContent()
-
         <Routes>
             {tableQuery === tableParam.tableName &&
                 <Route element={<List_page_content tableParam={tableParam} informations={infoBuilds} setSearchParam={setSearchParam}/>}>
@@ -375,7 +320,6 @@ const MainPage = () => {
             }
                 <Route path="create" element={<MyCreateForm frame_mode={Frame_Mode.CREATE} data={infoBuild} setData={setInfoBuild}
                                                             callback={addInfo} form={form_FieldName_3} method={{addInfo, clearInfo}}/>}/>
-
         </Routes>
     );
 };

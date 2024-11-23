@@ -6,7 +6,6 @@ import MyInput from "../../input/MyInput";
 import {Frame_Mode, InputStyleConst} from "../../../../constant/Const";
 import MyButton from "../../button/MyButton";
 
-
 class Template {
     constructor(fieldName = "", inputType = "", accessRights = "") {
         this.fieldName = fieldName;
@@ -15,14 +14,11 @@ class Template {
     }
 }
 
-
-
 const MyCreateTableColumnForm = () => {
 
     const [formTable, setFormTable] = useState({
         tableName: "",
         accessRights: "",
-
     })
 
     const [formColumn, setFormColumn] = useState({
@@ -52,7 +48,6 @@ const MyCreateTableColumnForm = () => {
     //
     //     ]);
 
-
     const rootClasses = [st.Rectangle, st.Visible]
 
     // if (visible || visible == null){
@@ -72,9 +67,7 @@ const MyCreateTableColumnForm = () => {
     };
 
     const newValue = `value_${Object.keys(formColumn).length}` // Для автоматичної унікальної назви обєктів
-
     console.log(formColumn)
-
 
     function increaseWidth(x) {
         let numberOfCharacters = x.target.value.length + 3;
@@ -88,17 +81,10 @@ const MyCreateTableColumnForm = () => {
         }else {x.target.style.width = "auto";}
     }
 
-
-
-
-
     return (
         <div className={rootClasses.join(" ")}>
-
             {/*<div className={st.Alert}>read only</div>*/}
-
             <MyFormAlert frame_mode={Frame_Mode.CREATE}/> {/*Думаю тимчасово*/}
-
             {/*<MySelect/>*/}
 
             <div style={{fontSize: "30px", fontWeight: "900"}}>
@@ -141,7 +127,6 @@ const MyCreateTableColumnForm = () => {
             <form>
                 {
                     Object.keys(formColumn).map((key) =>
-
                         <div className={st.Row}>
                             {/*<div>{formColumn[key].name}</div>*/}
 
@@ -178,14 +163,12 @@ const MyCreateTableColumnForm = () => {
 
                                 defaultValue="Права доступу"
 
-
                                 options={[
                                     {value: "private", name: "private"},
                                     {value: "public", name: "public"},
                                     // {value: "protected", name: "protected"},
                                     // {value: -1, name: "показати все"},
                                 ]}
-
                             />
 
                             <MySelect
@@ -194,21 +177,16 @@ const MyCreateTableColumnForm = () => {
 
                                 defaultValue="Кількість елементів на сторінці"
 
-
                                 options={[
                                     {value: 5, name: "5"},
                                     {value: 10, name: "10"},
                                     {value: 25, name: "25"},
                                     {value: -1, name: "показати все"},
                                 ]}
-
                             />
-
-
                         </div>
                     )
                 }
-
 
                 <div onClick={() => setFormColumn(prevForm => ({
                     ...prevForm,
@@ -218,7 +196,6 @@ const MyCreateTableColumnForm = () => {
                 }) )}>
                     Додати колонку
                 </div>
-
 
                 {/*РОБОТА ПОЛІВ З МАСИВАМИ ОБЄКТІВ*/} {/*TODO*/}
                 {/**/}
@@ -296,9 +273,7 @@ const MyCreateTableColumnForm = () => {
                 {/*}*/}
 
             </form>
-
         </div>
-
     );
 };
 

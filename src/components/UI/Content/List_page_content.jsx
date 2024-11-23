@@ -38,13 +38,11 @@ const List_page_content = ({children, tableParam, informations, setSearchParam, 
                 {tableParam.accessRight
                     ? <div className={st.AccessRight}>{tableParam.accessRight}</div>
                     : <div className={st.AccessRight}>Права доступу...</div>
-
                 }
 
                 {tableParam.tableName
                     ? <div className={st.TableName}>{tableParam.tableName}</div>
                     : <div className={st.TableName} style={{color: "#858585"}}>Назва таблиці...</div>
-
                 }
 
                 <MyList tableParam={tableParam} informations={sortedAndSearchedList}
@@ -59,7 +57,6 @@ const List_page_content = ({children, tableParam, informations, setSearchParam, 
             <Outlet/>  {/*або children, або Outlet*/}
 
             {/*<div className={st.Frame2}>*/}
-
             {/*</div>*/}
         </div>
     );

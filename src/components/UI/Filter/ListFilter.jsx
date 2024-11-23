@@ -5,9 +5,6 @@ import st from "./ListFilter.module.css"
 import {InputStyleConst} from "../../../constant/Const";
 
 const ListFilter = ({filter, setFilter}) => {
-
-
-
     return (
         <div className={st.Frame}>
             <MyInput
@@ -17,7 +14,6 @@ const ListFilter = ({filter, setFilter}) => {
                 inputStyle={InputStyleConst.SEARCH}
             />
             {/*<MySelect/>*/}
-
         </div>
     );
 };
