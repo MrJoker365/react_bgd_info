@@ -30,12 +30,6 @@ const MainPage = () => {
     })
 
     const [form_FieldName_3, setForm_FieldName_3] = useState({
-        id: {
-            name: "№",
-            inputType: "number",
-            category: "",
-            accessRight: false,
-        },
         email: {
             name: "Електронна пошта",
             inputType: "text",
@@ -84,7 +78,6 @@ const MainPage = () => {
 
         const response_data = response.map(obg => {
             return  ({
-                id: obg.id,
                 email: obg.email,
                 name: obg.name,
                 password: obg.password,
@@ -115,7 +108,6 @@ const MainPage = () => {
         console.log(response)
         // setInfoBuild(response.json)
         setSelectedUser({
-            id: response.id,
             email: response.email,
             name: response.name,
             password: response.password,

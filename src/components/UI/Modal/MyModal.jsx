@@ -1,19 +1,16 @@
 import React from "react";
 import st from "./MyModal.module.css";
 
-const MyModal = ({ visible, setVisible, title, children }) => {
-    const rootClasses = [st.Modal];
-    if (visible) {
-        rootClasses.push(st.Active);
-    }
+const MyModal = ({ visible, onConfirm, onCancel, message }) => {
+    if (!visible) return null;
 
     return (
-        <div className={rootClasses.join(" ")} onClick={() => setVisible(false)}>
-            <div className={st.ModalContent} onClick={(e) => e.stopPropagation()}>
-                <h3>{title}</h3>
-                {children}
-                <div className={st.Actions}>
-                    <button onClick={() => setVisible(false)}>Закрити</button>
+        <div className={st.modalBackdrop}>
+            <div className={st.modalContent}>
+                <p>{message}</p>
+                <div className={st.modalButtons}>
+                    <button onClick={onConfirm} className={st.confirmButton}>Yes</button>
+                    <button onClick={onCancel} className={st.cancelButton}>No</button>
                 </div>
             </div>
         </div>

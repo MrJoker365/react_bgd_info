@@ -79,7 +79,6 @@ const MainPage = () => {
 
         for (let i = 1; i < 20; i++) {
             const some = {
-                id: i,
                 col_1: `м.Львів вул.Івана Франка ${100+i} `,
                 col_2: "4 поверх",
                 col_3: "1 поверх",
@@ -190,7 +189,6 @@ const MainPage = () => {
     }, [infoBuild]);
 
     const form_FieldName = {
-        id: "№",
         address: "Адреса",
         electric_box: "Електричний щиток",
         place_of_overlap: "Місце перекриття",
@@ -199,11 +197,6 @@ const MainPage = () => {
     }
 
     const form_FieldName_2 = {
-        id: {
-            name: "№",
-            inputType: "number",
-            data: infoBuild?.id,
-        },
         address: {
             name: "Адреса",
             inputType: "text",

@@ -3,6 +3,7 @@ import st from "./MyEditForm.module.css"
 import MyInput from "../../../input/MyInput";
 import {InputStyleConst} from "../../../../../constant/Const";
 import MySelect from "../../../select/MySelect";
+import MyModal from "../../../Modal/MyModal";
 
 class Template {
     constructor(name = "", inputType = "",category = "", accessRights = "") {
@@ -79,6 +80,12 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
     // const [paramColumn, setParamColumn] = useState({})
 
     const [table_form_visible, setTable_form_visible] = useState(true)
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const handleSaveSettings = () => {
+        save_settings(); // Call the save settings function
+        setIsModalVisible(false); // Close the modal after saving
+    };
 
     const newValue = () => `col_${Object.keys(form_FieldName_3).length}`
 
@@ -87,14 +94,14 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
             <div className={st.Frame_1}>
 
                 <div
-                //     onClick={ () =>
-                //         table_form_style.display
-                //         ? delete table_form_style.display
-                //         : table_form_style.display === "none"
-                // }
+                    //     onClick={ () =>
+                    //         table_form_style.display
+                    //         ? delete table_form_style.display
+                    //         : table_form_style.display === "none"
+                    // }
 
-                        onClick={ () =>
-                            table_form_visible
+                    onClick={() =>
+                        table_form_visible
                             ? setTable_form_visible(false)
                             : setTable_form_visible(true)
                     }
@@ -110,7 +117,7 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                             <div style={{color: "purple", padding: "0 5px"}}
                                  onClick={() =>
                                      setSelectedRow(key)
-                            }
+                                 }
                             >{key}</div>
                         )}
                     </div>
@@ -120,15 +127,23 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                              ...prevForm,
                              [newValue()]: new Template()
                          }))}
-                    >+ new column</div>
+                    >+ new column
+                    </div>
                 </div>
 
-
-                <div style={{background: "white", color: "black"}}
-                     onClick={() => {save_settings()}}
+                <div
+                    style={{background: "white", color: "black", cursor: "pointer"}}
+                    onClick={() => setIsModalVisible(true)} // Show modal on click
                 >
                     Save settings
                 </div>
+
+                <MyModal
+                    visible={isModalVisible} // Control modal visibility
+                    onConfirm={handleSaveSettings} // Call save and close modal
+                    onCancel={() => setIsModalVisible(false)} // Close modal without saving
+                    message="Are you sure you want to save the settings?"
+                />
 
                 {/*Hello*/}
             </div>
@@ -139,7 +154,7 @@ const MyEditForm = ({tableParam, setTableParam, form_FieldName_3, setForm_FieldN
                         <div>{tableFieldNames.tableName}</div>
                         <MyInput
                             value={tableParam.tableName}
-                            onChange={ e => setTableParam({...tableParam, tableName: e.target.value} )}
+                            onChange={e => setTableParam({...tableParam, tableName: e.target.value})}
                             inputStyle={InputStyleConst.FIELD_NAME}
                         />
                     </div>
