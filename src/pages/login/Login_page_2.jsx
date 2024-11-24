@@ -17,10 +17,12 @@ function LoginRegister() {
         confirm_password: ""
     });
 
+    // Clear fields for login
     const clearForLogin = () => {
         setData({ ...data, name: "", confirm_password: "" });
     };
 
+    // Clear fields for registration
     const clearForRegister = () => {
         setData({
             name: "",
@@ -54,28 +56,41 @@ function LoginRegister() {
         setIsLogin(true);
     });
 
+    // Handle form submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (isLogin) {
+            clearForLogin();
+            fetching_Login();
+        } else {
+            clearForRegister();
+            fetching_Register();
+        }
+    };
+
+    // Handle switching between Login and Register
+    const handleToggleForm = (isLoginForm) => {
+        setIsLogin(isLoginForm);
+        if (isLoginForm) {
+            clearForLogin();
+        } else {
+            clearForRegister();
+        }
+    };
+
     return (
         <div className="form-container">
             <div className="form-box">
                 <div className="button-group">
-                    <button onClick={() => setIsLogin(true)} aria-pressed={isLogin} aria-label="Switch to Login">
+                    <button onClick={() => handleToggleForm(true)} aria-pressed={isLogin} aria-label="Switch to Login">
                         Login
                     </button>
-                    <button onClick={() => setIsLogin(false)} aria-pressed={!isLogin} aria-label="Switch to Register">
+                    <button onClick={() => handleToggleForm(false)} aria-pressed={!isLogin} aria-label="Switch to Register">
                         Register
                     </button>
                 </div>
 
-                <form onSubmit={e => {
-                    e.preventDefault();
-                    if (isLogin) {
-                        clearForLogin();
-                        fetching_Login();
-                    } else {
-                        clearForRegister();
-                        fetching_Register();
-                    }
-                }}>
+                <form onSubmit={handleSubmit}>
                     {!isLogin && (
                         <>
                             <label htmlFor="reg-name">Name:</label>
@@ -137,4 +152,3 @@ function LoginRegister() {
 }
 
 export default LoginRegister;
-
